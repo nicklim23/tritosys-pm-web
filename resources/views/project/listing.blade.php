@@ -18,7 +18,7 @@
                             </p>
                         </div>
                         <div class="col-sm-6" style="text-align:right;">
-                            <a href="{{ url('sites/add') }}" role="button" class="btn bg-gradient-success">+ Add
+                            <a href="{{ url('projects/add') }}" role="button" class="btn bg-gradient-success">+ Add
                                 Project</a>
                         </div>
                     </div>
@@ -37,54 +37,32 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach($datas as $project)
                             <tr>
                                 <td class="text-sm font-weight-normal">
-                                    <a class="ref-link" href="{{ url('projects/1') }}">Project A</a>
+                                    <a class="ref-link" href="{{url('projects')}}/{{$project->id}}">{{$project->name}}</a>
                                 </td>
                                 <td class="text-sm font-weight-normal">
-                                    <a class="ref-link" href="{{ url('customers/1') }}">Customer A</a>
+                                    <a class="ref-link" href="{{url('customers')}}/{{$project->customer->id}}">{{$project->customer_id?$project->customer->company_name:'-'}}</a>
                                 </td>
                                 <td class="text-sm font-weight-normal">
-                                    <a class="ref-link" href="{{ url('sites/1') }}">Q00010 - Site A</a>
+                                    <a class="ref-link" href="{{ url('sites')}}/{{$project->site->id}}">{{$project->site_id?$project->site->name:'-'}}</a>
                                 </td>
-                                <td class="text-sm font-weight-normal">User A</td>
-                                <td class="text-sm font-weight-normal">01 Oct 2022</td>
+                                <td class="text-sm font-weight-normal">{{$project->project_manager}}</td>
+                                <td class="text-sm font-weight-normal">{{$project->date}}</td>
                                 <td>
-                                    <span class="badge badge-warning badge-sm">In Progress</span>
+                                    <span class="badge badge-warning badge-sm">{{$project->status}}</span>
                                 </td>
                                 <td class="text-sm">
-                                    <a href="{{ url('projects/1') }}" data-bs-toggle="tooltip" data-bs-original-title="More">
+                                    <a href="{{url('projects')}}/{{$project->id}}" data-bs-toggle="tooltip" data-bs-original-title="More">
                                         <i class="fas fa-eye text-info" aria-hidden="true"></i>
                                     </a>
-                                    <a href="javascript:;" class="ms-3" data-bs-toggle="tooltip">
+                                    <a data-route="{{url('api/projects')}}/{{$project->id}}" onclick="removeData(this)" class="ms-3" data-bs-toggle="tooltip">
                                         <i class="fas fa-trash text-danger" aria-hidden="true"></i>
                                     </a>
                                 </td>
                             </tr>
-                            <tr>
-                                <td class="text-sm font-weight-normal">
-                                    <a class="ref-link" href="{{ url('projects/1') }}">Project B</a>
-                                </td>
-                                <td class="text-sm font-weight-normal">
-                                    <a class="ref-link" href="{{ url('customers/1') }}">Customer B</a>
-                                </td>
-                                <td class="text-sm font-weight-normal">
-                                    <a class="ref-link" href="{{ url('sites/1') }}">Q00011 - Site B</a>
-                                </td>
-                                <td class="text-sm font-weight-normal">User B</td>
-                                <td class="text-sm font-weight-normal">15 Sep 2022</td>
-                                <td>
-                                    <span class="badge badge-success badge-sm">Completed</span>
-                                </td>
-                                <td class="text-sm">
-                                    <a href="{{ url('projects/1') }}" data-bs-toggle="tooltip" data-bs-original-title="More">
-                                        <i class="fas fa-eye text-info" aria-hidden="true"></i>
-                                    </a>
-                                    <a href="javascript:;" class="ms-3" data-bs-toggle="tooltip">
-                                        <i class="fas fa-trash text-danger" aria-hidden="true"></i>
-                                    </a>
-                                </td>
-                            </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>

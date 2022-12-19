@@ -36,75 +36,31 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach($datas as $customer)
                             <tr>
                                 <td class="text-sm font-weight-normal">
-                                    <a class="ref-link" href="{{ url('customers/1') }}">Customer A Sdn. Bhd.</a>
+                                    <a class="ref-link" href="{{url('customers')}}/{{$customer->id}}">{{$customer->company_name}}</a>
                                 </td>
-                                <td class="text-sm font-weight-normal">A-123456</td>
-                                <td class="text-sm font-weight-normal">+6012-1234567</td>
-                                <td class="text-sm font-weight-normal">customera@mail.com</td>
+                                <td class="text-sm font-weight-normal">{{$customer->registration_no}}</td>
+                                <td class="text-sm font-weight-normal">{{$customer->contact}}</td>
+                                <td class="text-sm font-weight-normal">{{$customer->email}}</td>
                                 <td>
                                     <span class="badge badge-dot me-4">
                                         <i class="bg-success"></i>
-                                        <span class="text-dark text-xs">Active</span>
+                                        <span class="text-dark text-xs">{{$customer->status}}</span>
                                     </span>
                                 </td>
                                 <td class="text-sm">
-                                    <a href="{{ url('customers/1') }}" data-bs-toggle="tooltip" data-bs-original-title="More">
+                                    <a href="{{url('customers')}}/{{$customer->id}}" data-bs-toggle="tooltip" data-bs-original-title="More">
                                         <i class="fas fa-eye text-info" aria-hidden="true"></i>
                                     </a>
-                                    <a href="javascript:;" class="ms-3" data-bs-toggle="tooltip"
+                                    <a data-route="{{url('api/customers')}}/{{$customer->id}}" onclick="removeData(this)" class="ms-3" data-bs-toggle="tooltip"
                                         data-bs-original-title="Delete product">
                                         <i class="fas fa-trash text-danger" aria-hidden="true"></i>
                                     </a>
                                 </td>
                             </tr>
-                            <tr>
-                                <td class="text-sm font-weight-normal">
-                                    <a class="ref-link" href="{{ url('customers/1') }}">Customer B Sdn. Bhd.</a>
-                                </td>
-                                <td class="text-sm font-weight-normal">B-123456</td>
-                                <td class="text-sm font-weight-normal">+6012-2345678</td>
-                                <td class="text-sm font-weight-normal">customerb@mail.com</td>
-                                <td>
-                                    <span class="badge badge-dot me-4">
-                                        <i class="bg-success"></i>
-                                        <span class="text-dark text-xs">Active</span>
-                                    </span>
-                                </td>
-                                <td class="text-sm">
-                                    <a href="{{ url('customers/1') }}" data-bs-toggle="tooltip" data-bs-original-title="More">
-                                        <i class="fas fa-eye text-info" aria-hidden="true"></i>
-                                    </a>
-                                    <a href="javascript:;" class="ms-3" data-bs-toggle="tooltip"
-                                        data-bs-original-title="Delete product">
-                                        <i class="fas fa-trash text-danger" aria-hidden="true"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-sm font-weight-normal">
-                                    <a class="ref-link" href="{{ url('customers/1') }}">Customer C Sdn. Bhd.</a>
-                                </td>
-                                <td class="text-sm font-weight-normal">C-123456</td>
-                                <td class="text-sm font-weight-normal">+6012-3456789</td>
-                                <td class="text-sm font-weight-normal">customerc@mail.com</td>
-                                <td>
-                                    <span class="badge badge-dot me-4">
-                                        <i class="bg-success"></i>
-                                        <span class="text-dark text-xs">Active</span>
-                                    </span>
-                                </td>
-                                <td class="text-sm">
-                                    <a href="{{ url('customers/1') }}" data-bs-toggle="tooltip" data-bs-original-title="More">
-                                        <i class="fas fa-eye text-info" aria-hidden="true"></i>
-                                    </a>
-                                    <a href="javascript:;" class="ms-3" data-bs-toggle="tooltip"
-                                        data-bs-original-title="Delete product">
-                                        <i class="fas fa-trash text-danger" aria-hidden="true"></i>
-                                    </a>
-                                </td>
-                            </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>

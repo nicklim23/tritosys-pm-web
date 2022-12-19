@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SiteController;
+use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\ProjectController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,3 +37,25 @@ Route::get('/sites', function () {
 Route::get('/customers', function () {
     return view('customer.listing');
 });
+
+
+/* Sites */
+Route::get('/sites', [SiteController::class,'listing']);
+Route::get('/sites/add', [SiteController::class,'create']);
+Route::post('/sites', [SiteController::class,'store']);
+Route::get('/sites/{site}', [SiteController::class,'edit']);
+Route::put('/sites/{site}', [SiteController::class, 'update']);
+
+/* Customer */
+Route::get('/customers', [CustomerController::class,'listing']);
+Route::get('/customers/add', [CustomerController::class,'create']);
+Route::post('/customers', [CustomerController::class,'store']);
+Route::get('/customers/{customer}', [CustomerController::class,'edit']);
+Route::put('/customers/{customer}', [CustomerController::class, 'update']);
+
+/* Project */
+Route::get('/projects', [ProjectController::class,'listing']);
+Route::get('/projects/add', [ProjectController::class,'create']);
+Route::post('/projects', [ProjectController::class,'store']);
+Route::get('/projects/{project}', [ProjectController::class,'edit']);
+Route::put('/projects/{project}', [ProjectController::class, 'update']);

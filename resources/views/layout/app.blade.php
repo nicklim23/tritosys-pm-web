@@ -98,7 +98,7 @@
                         </div>
                         <span class="nav-link-text ms-1">Sites</span>
                     </a>
-                    <div class="collapse {{ Request::segment(1) == 'sites' ? 'show' : '' }}" id="siteNav">
+                    <div class="collapse {{ Request::segment(1) == 'sites' ? 'sites/add' : '' }}" id="siteNav">
                         <ul class="nav ms-4">
                             <li class="nav-item {{ Request::segment(1) == 'sites' && Request::segment(2) == '' ? 'active' : '' }}">
                                 <a class="nav-link {{ Request::segment(1) == 'sites' && Request::segment(2) == '' ? 'active' : '' }}" href="{{ url('sites') }}">
@@ -107,7 +107,7 @@
                                 </a>
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link " href="{{ url('sites/add') }}">
+                                <a class="nav-link {{ request()->is('*sites/add*') ? 'active' : '' }}" href="{{ url('sites/add') }}">
                                     <span class="sidenav-mini-icon"> A </span>
                                     <span class="sidenav-normal"> Add Site </span>
                                 </a>
@@ -134,7 +134,7 @@
                                 </a>
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link " href="{{ url('customers/add') }}">
+                                <a class="nav-link {{ request()->is('*customers/add*') ? 'active' : '' }}" href="{{ url('customers/add') }}">
                                     <span class="sidenav-mini-icon"> A </span>
                                     <span class="sidenav-normal"> Add Customer </span>
                                 </a>
@@ -226,6 +226,7 @@
     <script src="{{ asset('assets/js/plugins/chartjs.min.js') }}"></script>
     {{-- <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script> --}}
     <script src="{{ asset('assets/js/custom.js') }}"></script>
+    <script src="{{asset('assets/js/plugins/sweetalert.min.js')}}"></script>
     <script>
         var win = navigator.platform.indexOf('Win') > -1;
         if (win && document.querySelector('#sidenav-scrollbar')) {

@@ -35,22 +35,24 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach($datas as $site)
                             <tr>
                                 <td class="text-sm font-weight-normal">
-                                    <a class="ref-link" href="{{ url('sites/1') }}">Q00010</a>
+                                    <a class="ref-link" href="{{url('sites')}}/{{$site->id}}">{{$site->site_id}}</a>
                                 </td>
-                                <td class="text-sm font-weight-normal">TM SAMARAHAN</td>
-                                <td class="text-sm font-weight-normal">User A</td>
-                                <td class="text-sm font-weight-normal">Kota Samarahan, Malaysia</td>
+                                <td class="text-sm font-weight-normal">{{$site->name}}</td>
+                                <td class="text-sm font-weight-normal">{{$site->person_in_charge}}</td>
+                                <td class="text-sm font-weight-normal">{{$site->address}}</td>
                                 <td class="text-sm">
-                                    <a href="{{ url('sites/1') }}" data-bs-toggle="tooltip" data-bs-original-title="More">
+                                    <a href="{{url('sites')}}/{{$site->id}}" data-bs-toggle="tooltip" data-bs-original-title="More">
                                         <i class="fas fa-eye text-info" aria-hidden="true"></i>
                                     </a>
-                                    <a href="javascript:;" class="ms-3" data-bs-toggle="tooltip">
+                                    <a data-route="{{url('api/sites')}}/{{$site->id}}" onclick="removeData(this)" class="ms-3" data-bs-toggle="tooltip">
                                         <i class="fas fa-trash text-danger" aria-hidden="true"></i>
                                     </a>
                                 </td>
                             </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
