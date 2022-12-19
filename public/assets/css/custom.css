@@ -1,0 +1,29 @@
+.dropdown-menu-right {
+    inset: 0px 0px auto auto;
+}
+
+.dropdown .dropdown-menu.dropdown-menu-right:before {
+    content: "";
+}
+
+a.ref-link {
+    text-decoration: underline;
+    color: blue;
+}
+
+.save-btn {
+    display: none;
+}
+
+.ps__rail-y {
+    display: none !important;
+}
+
+img.signature {
+    height: 100px;
+    width: auto;
+}
+
+.navbar-vertical.navbar-expand-xs {
+    z-index: 999;
+}
