@@ -5,6 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Project;
 use App\Models\Customer;
 use App\Models\Site;
+use App\Models\ProjectMaterial;
+use App\Models\ProjectInstallation;
+use App\Models\ProjectAcceptance;
+use App\Models\ProjectDecomm;
+use App\Models\ProjectDocumentation;
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller
@@ -65,7 +70,14 @@ class ProjectController extends Controller
     {
         $customers = Customer::all();
         $sites = Site::all();
-        return view('project.edit_project',compact('project','customers','sites'));
+        $materials = ProjectMaterial::where('project_id', $project->id)->get();
+        $installations = ProjectInstallation::where('project_id', $project->id)->get();
+        $acceptances = ProjectAcceptance::where('project_id', $project->id)->get();
+        $decomms = ProjectDecomm::where('project_id', $project->id)->get();
+        $documentations = ProjectDocumentation::where('project_id', $project->id)->get();
+        
+        return view('project.edit_project',compact('project','customers','sites','materials','installations','acceptances','decomms','documentations'));
+        
     }
 
     /**
@@ -82,7 +94,7 @@ class ProjectController extends Controller
             'customer_id',
             'site_id',
             'project_manager',
-            'email',
+            'date',
             'status'
         ]));
         $project = $project->save();

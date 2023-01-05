@@ -35,6 +35,9 @@ function removeData(button) {
               $.ajax({
                   type: "DELETE",
                   url: route,
+                  data:{
+                    '_token': $(button).data('csrf')?$(button).data('csrf'):"",
+                  },
                   success: function (response) {
                       console.log(response);
                       swalCustomButtons2.fire({

@@ -13,32 +13,28 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="multisteps-form__progress">
-                                    <button class="multisteps-form__progress-btn js-active" type="button"
-                                        title="Project Details">
+                                    <button class="multisteps-form__progress-btn js-active" type="button" title="Project Details">
                                         <span>Project Details</span>
                                     </button>
-                                    <button class="multisteps-form__progress-btn" type="button"
-                                        title="Materials">Materials</button>
-                                    <button class="multisteps-form__progress-btn" type="button"
-                                        title="Installation">Installation</button>
-                                        <button class="multisteps-form__progress-btn" type="button"
-                                        title="Installation">Acceptance</button>
-                                    <button class="multisteps-form__progress-btn" type="button"
-                                        title="Decomm Materials">Decomm Materials</button>
-                                    <button class="multisteps-form__progress-btn" type="button"
-                                        title="Installation">Documentation</button>
+                                    <button class="multisteps-form__progress-btn" type="button" title="Materials">Materials</button>
+                                    <button class="multisteps-form__progress-btn" type="button" title="Installation">Installation</button>
+                                    <button class="multisteps-form__progress-btn" type="button" title="Installation">Acceptance</button>
+                                    <button class="multisteps-form__progress-btn" type="button" title="Decomm Materials">Decomm Materials</button>
+                                    <button class="multisteps-form__progress-btn" type="button" title="Installation">Documentation</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
                 <!--form panels-->
                 <div class="row">
                     <div class="col-12 col-lg-12 m-auto">
                         <div class="multisteps-form__form mb-8">
-                            <form id="form1">
+                            
+                            <!-- Project Details-->
+                            <form id="project">
                                 @csrf
-                                <!--single form panel 1-->
                                 <div class="card multisteps-form__panel p-3 border-radius-xl bg-white js-active"
                                     data-animation="FadeIn">
                                     <div class="multisteps-form__content">
@@ -58,7 +54,7 @@
                                                     <option value="" style="font-size:16px;">--Select Company--
                                                     </option>
                                                     @foreach ($customers as $customer)
-                                                        <option value="{{ $customer->id }}" style="font-size:16px;">
+                                                        <option value="{{ $customer->id }}" style="font-size:16px;" {{ $project->customer_id == $customer->id ? 'selected' : '' }}>
                                                             {{ $customer->company_name }}
                                                         </option>
                                                     @endforeach
@@ -74,7 +70,7 @@
                                                     <option value="" style="font-size:16px;">--Select Site--
                                                     </option>
                                                     @foreach ($sites as $site)
-                                                        <option value="{{ $site->id }}" style="font-size:16px;">
+                                                        <option value="{{ $site->id }}" style="font-size:16px;" {{ $project->site_id == $site->id ? 'selected' : '' }}>
                                                             {{ $site->name }}
                                                         </option>
                                                     @endforeach
@@ -84,9 +80,7 @@
                                                 <label for="project_manager" class="col-form-label">
                                                     Project Manager <b style="color:red;">*</b>
                                                 </label>
-                                                <input class="form-control" type="text"
-                                                    value="{{ $project->project_manager }}" id="project_manager"
-                                                    name="project_manager">
+                                                <input class="form-control" type="text" value="{{ $project->project_manager }}" id="project_manager" name="project_manager">
                                             </div>
                                         </div>
                                         <div class="form-group row">
@@ -94,8 +88,7 @@
                                                 <label for="date" class="col-form-label">
                                                     Date <b style="color:red;">*</b>
                                                 </label>
-                                                <input class="form-control" type="date" value="{{ $project->date }}"
-                                                    id="date" name="date">
+                                                <input class="form-control" type="date" value="{{ $project->date }}" id="date" name="date">
                                             </div>
                                             <div class="col-md-6">
                                                 <label for="status" class="col-form-label">
@@ -104,32 +97,31 @@
                                                 <select class="form-control" id="status" name="status">
                                                     <option value="" style="font-size:16px;">--Select Status--
                                                     </option>
-                                                    <option value="Active" style="font-size:16px;">
+                                                    <option value="Active" style="font-size:16px;" {{ $project->status == 'Active' ? 'selected' : '' }}>
                                                         Active
                                                     </option>
-                                                    <option value="Inactive" style="font-size:16px;">
+                                                    <option value="Inactive" style="font-size:16px;" {{ $project->status == 'Inactive' ? 'selected' : '' }}>
                                                         Inactive
                                                     </option>
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="d-flex justify-content-end mt-4">
-                                            <a class="btn bg-gradient-danger lg-3" href="{{ url('/projects') }}"
-                                                role="button">Back</a>
-                                            <button class="btn bg-gradient-info lg-3 ms-2" type="submit"
-                                                role="button">Save</button>
+                                            <a class="btn bg-gradient-danger lg-3" href="{{ url('/projects') }}" role="button">Back</a>
+                                            &ensp;
+                                            <button class="btn bg-gradient-info lg-3 ms-2" type="submit" role="button">Save</button>
                                         </div>
                                     </div>
                                 </div>
                             </form>
-                            <!--single form panel 2-->
+
+                            <!-- Materials -->
                             <div class="card multisteps-form__panel p-3 border-radius-xl bg-white"
                                 data-animation="FadeIn">
                                 <div class="multisteps-form__content">
                                     <div class="row mt-1">
                                         <div class="col-12" style="text-align: right">
-                                            <a class="btn bg-gradient-success" href="#" data-bs-toggle="modal"
-                                                data-bs-target="#materialModal">+ Add</a>
+                                            <a class="btn bg-gradient-success" href="#" data-bs-toggle="modal" data-bs-target="#materialModal">+ Add</a>
                                         </div>
                                         <div class="col-12">
                                             <div class="table-responsive">
@@ -144,19 +136,19 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
+                                                        @foreach($materials as $item)
                                                         <tr>
-                                                            <td>1</td>
-                                                            <td>2023-01-01</td>
-                                                            <td>John</td>
-                                                            <td>Done</td>
+                                                            <td>{{$loop->index+1}}</td>
+                                                            <td>{{ $item->collection_date }}</td>
+                                                            <td>{{ $item->collected_by }}</td>
+                                                            <td>{{ $item->remarks }}</td>
                                                             <td>
-                                                                <a data-route="" onclick="removeData(this)"
-                                                                    class="ms-3" data-bs-toggle="tooltip">
-                                                                    <i class="fas fa-trash text-danger"
-                                                                        aria-hidden="true"></i>
+                                                                <a data-route="{{ url('projects/materials/'.$item->id) }}" data-csrf="{{ csrf_token() }}" onclick="removeData(this)" class="ms-3" data-bs-toggle="tooltip">
+                                                                    <i class="fas fa-trash text-danger" aria-hidden="true"></i>
                                                                 </a>
                                                             </td>
                                                         </tr>
+                                                        @endforeach
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -164,14 +156,15 @@
                                     </div>
                                 </div>
                             </div>
-                            <!--single form panel 3-->
+
+                            <!-- Installation -->
                             <div class="card multisteps-form__panel p-3 border-radius-xl bg-white"
                                 data-animation="FadeIn">
                                 <div class="multisteps-form__content">
                                     <div class="row mt-1">
                                         <div class="col-12" style="text-align: right">
                                             <a class="btn bg-gradient-success" href="#" data-bs-toggle="modal"
-                                                data-bs-target="#materialModal">+ Add</a>
+                                                data-bs-target="#installationModal">+ Add</a>
                                         </div>
                                         <div class="col-12">
                                             <div class="table-responsive">
@@ -189,22 +182,22 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
+                                                        @foreach($installations as $item)
                                                         <tr>
-                                                            <td>1</td>
-                                                            <td>INSTALLATION</td>
-                                                            <td>Team A</td>
-                                                            <td>2022-12-01</td>
-                                                            <td>2023-01-01</td>
-                                                            <td>4</td>
-                                                            <td>Done</td>
+                                                            <td>{{$loop->index+1}}</td>
+                                                            <td>{{ $item->scope }}</td>
+                                                            <td>{{ $item->team }}</td>
+                                                            <td>{{ $item->start_date }}</td>
+                                                            <td>{{ $item->complete_date }}</td>
+                                                            <td>{{ $item->week }}</td>
+                                                            <td>{{ $item->remarks }}</td>
                                                             <td>
-                                                                <a data-route="" onclick="removeData(this)"
-                                                                    class="ms-3" data-bs-toggle="tooltip">
-                                                                    <i class="fas fa-trash text-danger"
-                                                                        aria-hidden="true"></i>
+                                                                <a data-route="{{ url('projects/installations/'.$item->id) }}" data-csrf="{{ csrf_token() }}" onclick="removeData(this)" class="ms-3" data-bs-toggle="tooltip">
+                                                                    <i class="fas fa-trash text-danger" aria-hidden="true"></i>
                                                                 </a>
                                                             </td>
                                                         </tr>
+                                                        @endforeach
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -212,14 +205,15 @@
                                     </div>
                                 </div>
                             </div>
-                            <!--single form panel 4-->
+
+                            <!-- Acceptance -->
                             <div class="card multisteps-form__panel p-3 border-radius-xl bg-white"
                                 data-animation="FadeIn">
                                 <div class="multisteps-form__content">
                                     <div class="row mt-1">
                                         <div class="col-12" style="text-align: right">
                                             <a class="btn bg-gradient-success" href="#" data-bs-toggle="modal"
-                                                data-bs-target="#materialModal">+ Add</a>
+                                                data-bs-target="#acceptanceModal">+ Add</a>
                                         </div>
                                         <div class="col-12">
                                             <div class="table-responsive">
@@ -235,20 +229,20 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
+                                                        @foreach($acceptances as $item)
                                                         <tr>
-                                                            <td>1</td>
-                                                            <td>TRUE</td>
-                                                            <td>2022-12-01</td>
-                                                            <td>RSA</td>
-                                                            <td>Done</td>
+                                                            <td>{{$loop->index+1}}</td>
+                                                            <td>{{ $item->details_received }}</td>
+                                                            <td>{{ $item->acceptance_date }}</td>
+                                                            <td>{{ $item->type }}</td>
+                                                            <td>{{ $item->remarks }}</td>
                                                             <td>
-                                                                <a data-route="" onclick="removeData(this)"
-                                                                    class="ms-3" data-bs-toggle="tooltip">
-                                                                    <i class="fas fa-trash text-danger"
-                                                                        aria-hidden="true"></i>
+                                                                <a data-route="{{ url('projects/acceptances/'.$item->id) }}" data-csrf="{{ csrf_token() }}" onclick="removeData(this)" class="ms-3" data-bs-toggle="tooltip">
+                                                                    <i class="fas fa-trash text-danger" aria-hidden="true"></i>
                                                                 </a>
                                                             </td>
                                                         </tr>
+                                                        @endforeach
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -256,14 +250,15 @@
                                     </div>
                                 </div>
                             </div>
-                            <!--single form panel 5-->
+
+                            <!-- Decomm Materials -->
                             <div class="card multisteps-form__panel p-3 border-radius-xl bg-white"
                                 data-animation="FadeIn">
                                 <div class="multisteps-form__content">
                                     <div class="row mt-1">
                                         <div class="col-12" style="text-align: right">
                                             <a class="btn bg-gradient-success" href="#" data-bs-toggle="modal"
-                                                data-bs-target="#materialModal">+ Add</a>
+                                                data-bs-target="#decommModal">+ Add</a>
                                         </div>
                                         <div class="col-12">
                                             <div class="table-responsive">
@@ -278,19 +273,19 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
+                                                        @foreach($decomms as $item)
                                                         <tr>
-                                                            <td>1</td>
-                                                            <td>2023-01-01</td>
-                                                            <td>COMPLETE</td>
-                                                            <td>Done</td>
+                                                            <td>{{$loop->index+1}}</td>
+                                                            <td>{{ $item->submission_date }}</td>
+                                                            <td>{{ $item->status }}</td>
+                                                            <td>{{ $item->remarks }}</td>
                                                             <td>
-                                                                <a data-route="" onclick="removeData(this)"
-                                                                    class="ms-3" data-bs-toggle="tooltip">
-                                                                    <i class="fas fa-trash text-danger"
-                                                                        aria-hidden="true"></i>
+                                                                <a data-route="{{ url('projects/decomms/'.$item->id) }}" data-csrf="{{ csrf_token() }}" onclick="removeData(this)" class="ms-3" data-bs-toggle="tooltip">
+                                                                    <i class="fas fa-trash text-danger" aria-hidden="true"></i>
                                                                 </a>
                                                             </td>
                                                         </tr>
+                                                        @endforeach
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -298,14 +293,15 @@
                                     </div>
                                 </div>
                             </div>
-                            <!--single form panel 6-->
+
+                            <!-- Documentation -->
                             <div class="card multisteps-form__panel p-3 border-radius-xl bg-white"
                                 data-animation="FadeIn">
                                 <div class="multisteps-form__content">
                                     <div class="row mt-1">
                                         <div class="col-12" style="text-align: right">
                                             <a class="btn bg-gradient-success" href="#" data-bs-toggle="modal"
-                                                data-bs-target="#materialModal">+ Add</a>
+                                                data-bs-target="#documentationModal">+ Add</a>
                                         </div>
                                         <div class="col-12">
                                             <div class="table-responsive">
@@ -325,24 +321,28 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
+                                                        @foreach($documentations as $item)
                                                         <tr>
-                                                            <td>1</td>
-                                                            <td><a href="#">document.pdf</a></td>
-                                                            <td>TRUE</td>
-                                                            <td>RSA</td>
-                                                            <td>2022-12-01</td>
-                                                            <td>2022-12-01</td>
-                                                            <td>Closed</td>
-                                                            <td>rambung</td>
-                                                            <td>uploaded to server</td>
+                                                            <td>{{$loop->index+1}}</td>
                                                             <td>
-                                                                <a data-route="" onclick="removeData(this)"
-                                                                    class="ms-3" data-bs-toggle="tooltip">
-                                                                    <i class="fas fa-trash text-danger"
-                                                                        aria-hidden="true"></i>
+                                                                <a class="ref-link" href="{{asset('storage')}}/{{$item->document_path}}" target="_blank">
+                                                                    {{ $item->document_name }}
+                                                                </a>
+                                                            </td>
+                                                            <td>{{ $item->details_received }}</td>
+                                                            <td>{{ $item->document_type }}</td>
+                                                            <td>{{ $item->submission_date }}</td>
+                                                            <td>{{ $item->wcr_date }}</td>
+                                                            <td>{{ $item->wcr_status }}</td>
+                                                            <td>{{ $item->status }}</td>
+                                                            <td>{{ $item->remarks }}</td>
+                                                            <td>
+                                                                <a data-route="{{ url('projects/documentations/'.$item->id) }}" data-csrf="{{ csrf_token() }}" onclick="removeData(this)" class="ms-3" data-bs-toggle="tooltip">
+                                                                    <i class="fas fa-trash text-danger" aria-hidden="true"></i>
                                                                 </a>
                                                             </td>
                                                         </tr>
+                                                        @endforeach
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -362,7 +362,7 @@
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
-                <form id="form2">
+                <form id="materials">
                     @csrf
                     <div class="modal-header">
                         <h5 class="modal-title" id="materialModalLabel">Add Material</h5>
@@ -386,13 +386,193 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn bg-gradient-primary">Submit</button>
+                        <button type="submit" class="btn bg-gradient-primary">Submit</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
+    
+    <!-- Installation Modal -->
+    <div class="modal fade" id="installationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalMessageTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <form id="installation">
+                    @csrf
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="materialModalLabel">Add Installation</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label class="col-form-label">Scope:</label>
+                            <input type="text" name="scope" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label class="col-form-label">Team:</label>
+                            <input type="text" name="team" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label class="col-form-label">Start Date:</label>
+                            <input type="date" name="start_date" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label class="col-form-label">Complete Date:</label>
+                            <input type="date" name="complete_date" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label class="col-form-label">Week:</label>
+                            <input type="number" name="week" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label class="col-form-label">Remarks:</label>
+                            <textarea name="remarks" rows="3" class="form-control"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn bg-gradient-primary">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
+    
+    <!-- Acceptance Modal -->
+    <div class="modal fade" id="acceptanceModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalMessageTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <form id="acceptance">
+                    @csrf
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="materialModalLabel">Add Acceptance</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label class="col-form-label">Details Received:</label>
+                            <input type="text" name="details_received" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label class="col-form-label">Acceptance Date:</label>
+                            <input type="date" name="acceptance_date" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label class="col-form-label">Type:</label>
+                            <input type="text" name="type" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label class="col-form-label">Remarks:</label>
+                            <textarea name="remarks" rows="3" class="form-control"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn bg-gradient-primary">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Decomm Modal -->
+    <div class="modal fade" id="decommModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalMessageTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <form id="decomm">
+                    @csrf
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="materialModalLabel">Add Decomm Materials</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label class="col-form-label">Submission Date:</label>
+                            <input type="date" name="submission_date" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label class="col-form-label">Status:</label>
+                            <input type="text" name="status" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label class="col-form-label">Remarks:</label>
+                            <textarea name="remarks" rows="3" class="form-control"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn bg-gradient-primary">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Documentation Modal -->
+    <div class="modal fade" id="documentationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalMessageTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <form id="documentation" enctype="multipart/form-data">
+                    @csrf
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="materialModalLabel">Add Decomm Materials</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label class="col-form-label">Document:</label>
+                            <input type="file" name="document" id="document" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label class="col-form-label">Details Received:</label>
+                            <input type="text" name="details_received" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label class="col-form-label">Document Type:</label>
+                            <input type="text" name="document_type" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label class="col-form-label">Submission Date:</label>
+                            <input type="date" name="submission_date" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label class="col-form-label">WCR Date:</label>
+                            <input type="date" name="wcr_date" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label class="col-form-label">WCR Status:</label>
+                            <input type="text" name="wcr_status" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label class="col-form-label">Status:</label>
+                            <input type="text" name="status" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label class="col-form-label">Remarks:</label>
+                            <textarea name="remarks" rows="3" class="form-control"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn bg-gradient-primary">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
 @endsection
 
 @section('pagespecificscripts')
@@ -434,26 +614,34 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-        $('#form1').submit(function(e) {
+
+        $('#project').submit(function(e) {
+
             const swalCustomButtons = Swal.mixin({
                 customClass: {
                     confirmButton: 'btn bg-gradient-info',
                 },
                 buttonsStyling: false
             })
+
             e.preventDefault();
             var form = $(this)[0]; //selector for the current form
             var id = "{{ Request::segment(2) }}";
 
             //if form validation passed
             if (form.checkValidity() === true) {
+                
                 //submit to backend
                 var formData = new FormData(this);
-                formData = new URLSearchParams(formData).toString();
+                formData.append("_method", "PUT");
+
                 $.ajax({
-                    url: "{{ url('projects/' . $project->id) }}",
-                    type: "PUT",
+                    // url: "{{ url('projects/' . $project->id) }}",
+                    url: ROUTE.PROJECT.PROJECTS + '/{{ $project->id }}',
+                    type: "POST",
                     data: formData,
+                    processData: false,
+                    contentType: false,
                     success: function(response) {
                         console.log("success");
                         swalCustomButtons.fire({
@@ -478,5 +666,262 @@
                 });
             }
         });
+
+        $('#materials').submit(function(e) {
+
+            const swalCustomButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'btn bg-gradient-info',
+                },
+                buttonsStyling: false
+            })
+
+            e.preventDefault();
+            var form = $(this)[0]; //selector for the current form
+            var id = "{{ Request::segment(2) }}";
+
+            //if form validation passed
+            if (form.checkValidity() === true) {
+                
+                //submit to backend
+                var formData = new FormData(this);
+
+                $.ajax({
+                    // url: "{{ url('projects/' . $project->id) }}",
+                    url: ROUTE.PROJECT.PROJECTS + '/{{ $project->id }}/materials',
+                    type: "POST",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        console.log("success");
+                        swalCustomButtons.fire({
+                            icon: 'success',
+                            position: 'center',
+                            type: 'success',
+                            title: 'Materials Added!',
+                            showButton: true,
+                        })
+                        setTimeout(function() {
+                            window.location.reload();
+                        }, 1500);
+                    },
+                    error: function(error) {
+                        console.log("error");
+                        Swal.fire(
+                            'Error!',
+                            "Failed! Please try again.",
+                            'error'
+                        )
+                    }
+                });
+            }
+        });
+
+        $('#installation').submit(function(e) {
+
+            const swalCustomButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'btn bg-gradient-info',
+                },
+                buttonsStyling: false
+            })
+
+            e.preventDefault();
+            var form = $(this)[0]; //selector for the current form
+            var id = "{{ Request::segment(2) }}";
+
+            //if form validation passed
+            if (form.checkValidity() === true) {
+                
+                //submit to backend
+                var formData = new FormData(this);
+
+                $.ajax({
+                    // url: "{{ url('projects/' . $project->id) }}",
+                    url: ROUTE.PROJECT.PROJECTS + '/{{ $project->id }}/installations',
+                    type: "POST",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        console.log("success");
+                        swalCustomButtons.fire({
+                            icon: 'success',
+                            position: 'center',
+                            type: 'success',
+                            title: 'Installations Added!',
+                            showButton: true,
+                        })
+                        setTimeout(function() {
+                            window.location.reload();
+                        }, 1500);
+                    },
+                    error: function(error) {
+                        console.log("error");
+                        Swal.fire(
+                            'Error!',
+                            "Failed! Please try again.",
+                            'error'
+                        )
+                    }
+                });
+            }
+        });
+
+        $('#acceptance').submit(function(e) {
+
+            const swalCustomButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'btn bg-gradient-info',
+                },
+                buttonsStyling: false
+            })
+
+            e.preventDefault();
+            var form = $(this)[0]; //selector for the current form
+            var id = "{{ Request::segment(2) }}";
+
+            //if form validation passed
+            if (form.checkValidity() === true) {
+                
+                //submit to backend
+                var formData = new FormData(this);
+
+                $.ajax({
+                    // url: "{{ url('projects/' . $project->id) }}",
+                    url: ROUTE.PROJECT.PROJECTS + '/{{ $project->id }}/acceptances',
+                    type: "POST",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        console.log("success");
+                        swalCustomButtons.fire({
+                            icon: 'success',
+                            position: 'center',
+                            type: 'success',
+                            title: 'Acceptances Added!',
+                            showButton: true,
+                        })
+                        setTimeout(function() {
+                            window.location.reload();
+                        }, 1500);
+                    },
+                    error: function(error) {
+                        console.log("error");
+                        Swal.fire(
+                            'Error!',
+                            "Failed! Please try again.",
+                            'error'
+                        )
+                    }
+                });
+            }
+        });
+
+        $('#decomm').submit(function(e) {
+
+            const swalCustomButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'btn bg-gradient-info',
+                },
+                buttonsStyling: false
+            })
+
+            e.preventDefault();
+            var form = $(this)[0]; //selector for the current form
+            var id = "{{ Request::segment(2) }}";
+
+            //if form validation passed
+            if (form.checkValidity() === true) {
+                
+                //submit to backend
+                var formData = new FormData(this);
+
+                $.ajax({
+                    // url: "{{ url('projects/' . $project->id) }}",
+                    url: ROUTE.PROJECT.PROJECTS + '/{{ $project->id }}/decomms',
+                    type: "POST",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        console.log("success");
+                        swalCustomButtons.fire({
+                            icon: 'success',
+                            position: 'center',
+                            type: 'success',
+                            title: 'Decomm Materials Added!',
+                            showButton: true,
+                        })
+                        setTimeout(function() {
+                            window.location.reload();
+                        }, 1500);
+                    },
+                    error: function(error) {
+                        console.log("error");
+                        Swal.fire(
+                            'Error!',
+                            "Failed! Please try again.",
+                            'error'
+                        )
+                    }
+                });
+            }
+        });
+
+        $('#documentation').submit(function(e) {
+
+            const swalCustomButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'btn bg-gradient-info',
+                },
+                buttonsStyling: false
+            })
+
+            e.preventDefault();
+            var form = $(this)[0]; //selector for the current form
+            var id = "{{ Request::segment(2) }}";
+
+            //if form validation passed
+            if (form.checkValidity() === true) {
+                
+                //submit to backend
+                var formData = new FormData(this);
+
+                $.ajax({
+                    // url: "{{ url('projects/' . $project->id) }}",
+                    url: ROUTE.PROJECT.PROJECTS + '/{{ $project->id }}/documentations',
+                    type: "POST",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        console.log("success");
+                        swalCustomButtons.fire({
+                            icon: 'success',
+                            position: 'center',
+                            type: 'success',
+                            title: 'Documentations Added!',
+                            showButton: true,
+                        })
+                        setTimeout(function() {
+                            window.location.reload();
+                        }, 1500);
+                    },
+                    error: function(error) {
+                        console.log("error");
+                        Swal.fire(
+                            'Error!',
+                            "Failed! Please try again.",
+                            'error'
+                        )
+                    }
+                });
+            }
+        });
+
+
     </script>
 @endsection

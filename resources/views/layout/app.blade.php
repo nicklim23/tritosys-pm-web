@@ -226,6 +226,7 @@
     <script src="{{ asset('assets/js/plugins/chartjs.min.js') }}"></script>
     {{-- <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script> --}}
     <script src="{{ asset('assets/js/custom.js') }}"></script>
+    <script src="{{ asset('assets/js/const.js') }}"></script>
     <script src="{{asset('assets/js/plugins/sweetalert.min.js')}}"></script>
     <script>
         var win = navigator.platform.indexOf('Win') > -1;

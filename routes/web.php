@@ -4,6 +4,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\ProjectAcceptanceController;
+use App\Http\Controllers\ProjectDecommController;
+use App\Http\Controllers\ProjectDocumentationController;
+use App\Http\Controllers\ProjectInstallationController;
+use App\Http\Controllers\ProjectMaterialController;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,3 +64,19 @@ Route::get('/projects/add', [ProjectController::class,'create']);
 Route::post('/projects', [ProjectController::class,'store']);
 Route::get('/projects/{project}', [ProjectController::class,'edit']);
 Route::put('/projects/{project}', [ProjectController::class, 'update']);
+
+Route::post('/projects/{project}/materials', [ProjectMaterialController::class, 'store']);
+Route::delete('/projects/materials/{projectMaterial}', [ProjectMaterialController::class, 'destroy']);
+
+Route::post('/projects/{project}/installations', [ProjectInstallationController::class, 'store']);
+Route::delete('/projects/installations/{projectInstallation}', [ProjectInstallationController::class, 'destroy']);
+
+Route::post('/projects/{project}/acceptances', [ProjectAcceptanceController::class, 'store']);
+Route::delete('/projects/acceptances/{projectAcceptance}', [ProjectAcceptanceController::class, 'destroy']);
+
+Route::post('/projects/{project}/decomms', [ProjectDecommController::class, 'store']);
+Route::delete('/projects/decomms/{projectDecomm}', [ProjectDecommController::class, 'destroy']);
+
+Route::post('/projects/{project}/documentations', [ProjectDocumentationController::class, 'store']);
+Route::delete('/projects/documentations/{projectDocumentation}', [ProjectDocumentationController::class, 'destroy']);
+
