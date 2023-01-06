@@ -45,7 +45,6 @@
                 aria-hidden="true" id="iconSidenav"></i>
             <a class="navbar-brand m-0 text-center" href="" target="_blank">
                 <img src="{{ asset('assets/img/logos/logo.png') }}" class="navbar-brand-img h-100" alt="main_logo">
-                {{-- <span class="ms-1 font-weight-bold">eITP</span> --}}
             </a>
         </div>
         <hr class="horizontal dark mt-0">
@@ -172,7 +171,7 @@
                                 <i class="fa fa-user me-sm-1"></i>
                                 <span class="d-sm-inline d-none">Admin</span>
                             </a>
-                            <a href="{{ url('/') }}" class="nav-link text-white font-weight-bold px-0 ms-3">
+                            <a href="{{ url('/logout') }}" class="nav-link text-white font-weight-bold px-0 ms-3">
                                 <i class="fa fa-sign-out me-sm-2"></i>
                             </a>
                         </li>

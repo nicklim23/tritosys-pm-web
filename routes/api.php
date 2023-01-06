@@ -21,6 +21,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::resource('projects', ProjectController::class);
-Route::resource('customers', CustomerController::class);
-Route::resource('sites', SiteController::class);
+Route::middleware('auth:api')->group(function(){
+    Route::resource('projects', ProjectController::class);
+    Route::resource('customers', CustomerController::class);
+    Route::resource('sites', SiteController::class);
+});
