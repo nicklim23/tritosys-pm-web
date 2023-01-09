@@ -15,6 +15,8 @@ class SiteController extends Controller
     public function index()
     {
         //
+        $datas = Site::all();
+        return response($datas, 200);
     }
 
     /**
@@ -49,6 +51,7 @@ class SiteController extends Controller
     public function show(Site $site)
     {
         //
+        return response(compact('site'), 200);
     }
 
     /**

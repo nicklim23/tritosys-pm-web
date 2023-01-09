@@ -22,6 +22,8 @@ class ProjectController extends Controller
     public function index()
     {
         //
+        $datas = Project::with(['site','customer'])->get();
+        return response($datas, 200);
     }
 
     /**
@@ -58,6 +60,15 @@ class ProjectController extends Controller
     public function show(Project $project)
     {
         //
+        $customers = Customer::all();
+        $sites = Site::all();
+        $materials = ProjectMaterial::where('project_id', $project->id)->get();
+        $installations = ProjectInstallation::where('project_id', $project->id)->get();
+        $acceptances = ProjectAcceptance::where('project_id', $project->id)->get();
+        $decomms = ProjectDecomm::where('project_id', $project->id)->get();
+        $documentations = ProjectDocumentation::where('project_id', $project->id)->get();
+        
+        return response(compact('project','customers','sites','materials','installations','acceptances','decomms','documentations'), 200);
     }
 
     /**

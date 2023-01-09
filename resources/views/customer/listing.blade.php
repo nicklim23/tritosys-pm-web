@@ -54,8 +54,7 @@
                                     <a href="{{url('customers')}}/{{$customer->id}}" data-bs-toggle="tooltip" data-bs-original-title="More">
                                         <i class="fas fa-eye text-info" aria-hidden="true"></i>
                                     </a>
-                                    <a data-route="{{url('api/customers')}}/{{$customer->id}}" onclick="removeData(this)" class="ms-3" data-bs-toggle="tooltip"
-                                        data-bs-original-title="Delete product">
+                                    <a data-route="{{url('customers')}}/{{$customer->id}}" onclick="removeData(this)" data-csrf="{{ csrf_token() }}" class="ms-3" data-bs-toggle="tooltip" data-bs-original-title="Delete product">
                                         <i class="fas fa-trash text-danger" aria-hidden="true"></i>
                                     </a>
                                 </td>

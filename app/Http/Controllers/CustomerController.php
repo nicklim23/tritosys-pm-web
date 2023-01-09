@@ -15,6 +15,8 @@ class CustomerController extends Controller
     public function index()
     {
         //
+        $datas = Customer::all();
+        return response($datas, 200);
     }
 
     /**
@@ -49,6 +51,7 @@ class CustomerController extends Controller
     public function show(Customer $customer)
     {
         //
+        return response(compact('customer'), 200);
     }
 
     /**
