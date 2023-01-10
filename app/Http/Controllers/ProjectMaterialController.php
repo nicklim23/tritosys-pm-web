@@ -13,9 +13,11 @@ class ProjectMaterialController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Project $project)
     {
         //
+        $projectMaterial = ProjectMaterial::where('project_id', $project->id)->get();
+        return response($projectMaterial, 200);
     }
 
     /**
@@ -53,6 +55,7 @@ class ProjectMaterialController extends Controller
     public function show(ProjectMaterial $projectMaterial)
     {
         //
+        return response($projectMaterial, 200);
     }
 
     /**

@@ -15,7 +15,7 @@ class SiteController extends Controller
     public function index()
     {
         //
-        $datas = Site::all();
+        $datas = Site::paginate(50);
         return response($datas, 200);
     }
 
@@ -51,7 +51,7 @@ class SiteController extends Controller
     public function show(Site $site)
     {
         //
-        return response(compact('site'), 200);
+        return response($site, 200);
     }
 
     /**

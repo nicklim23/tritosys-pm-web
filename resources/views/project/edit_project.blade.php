@@ -18,9 +18,10 @@
                                 </button>
                                 <button class="multisteps-form__progress-btn" type="button" title="Materials">Materials</button>
                                 <button class="multisteps-form__progress-btn" type="button" title="Installation">Installation</button>
-                                <button class="multisteps-form__progress-btn" type="button" title="Installation">Acceptance</button>
+                                <button class="multisteps-form__progress-btn" type="button" title="Acceptance">Acceptance</button>
                                 <button class="multisteps-form__progress-btn" type="button" title="Decomm Materials">Decomm Materials</button>
-                                <button class="multisteps-form__progress-btn" type="button" title="Installation">Documentation</button>
+                                <button class="multisteps-form__progress-btn" type="button" title="Documentation">Documentation</button>
+                                <button class="multisteps-form__progress-btn" type="button" title="Kanban">Kanban</button>
                             </div>
                         </div>
                     </div>
@@ -295,13 +296,68 @@
                         </div>
 
                         <!-- Documentation -->
-                        <div class="card multisteps-form__panel p-3 border-radius-xl bg-white"
-                            data-animation="FadeIn">
+                        <div class="card multisteps-form__panel p-3 border-radius-xl bg-white" data-animation="FadeIn">
                             <div class="multisteps-form__content">
                                 <div class="row mt-1">
                                     <div class="col-12" style="text-align: right">
                                         <a class="btn bg-gradient-success" href="#" data-bs-toggle="modal"
                                             data-bs-target="#documentationModal">+ Add</a>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="table-responsive">
+                                            <table class="table table-flush" id="datatable-search5">
+                                                <thead class="thead-light">
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>Document</th>
+                                                        <th>Details Received</th>
+                                                        <th>Document Type</th>
+                                                        <th>Submission Date</th>
+                                                        <th>WCR Date</th>
+                                                        <th>WCR Status</th>
+                                                        <th>Status</th>
+                                                        <th>Remarks</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach($documentations as $item)
+                                                    <tr>
+                                                        <td>{{$loop->index+1}}</td>
+                                                        <td>
+                                                            <a class="ref-link" href="{{asset('storage')}}/{{$item->document_path}}" target="_blank">
+                                                                {{ $item->document_name }}
+                                                            </a>
+                                                        </td>
+                                                        <td>{{ $item->details_received }}</td>
+                                                        <td>{{ $item->document_type }}</td>
+                                                        <td>{{ $item->submission_date }}</td>
+                                                        <td>{{ $item->wcr_date }}</td>
+                                                        <td>{{ $item->wcr_status }}</td>
+                                                        <td>{{ $item->status }}</td>
+                                                        <td>{{ $item->remarks }}</td>
+                                                        <td>
+                                                            <a data-route="{{ url('projects/documentations/'.$item->id) }}" data-csrf="{{ csrf_token() }}" onclick="removeData(this)" class="ms-3" data-bs-toggle="tooltip">
+                                                                <i class="fas fa-trash text-danger" aria-hidden="true"></i>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Kanban -->
+                        <div class="card multisteps-form__panel p-3 border-radius-xl bg-white" data-animation="FadeIn">
+                            <div class="multisteps-form__content">
+                                <div class="row mt-1">
+                                    <div class="col-12" style="text-align: right">
+                                        <a class="btn bg-gradient-success" href="#" data-bs-toggle="modal"
+                                            data-bs-target="#kanbanModal">+ Add</a>
                                     </div>
                                     <div class="col-12">
                                         <div class="table-responsive">

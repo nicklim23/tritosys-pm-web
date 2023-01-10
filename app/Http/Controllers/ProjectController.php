@@ -22,7 +22,7 @@ class ProjectController extends Controller
     public function index()
     {
         //
-        $datas = Project::with(['site','customer'])->get();
+        $datas = Project::with(['site','customer'])->paginate(50);
         return response($datas, 200);
     }
 

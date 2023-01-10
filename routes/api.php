@@ -57,23 +57,33 @@ Route::middleware('auth:api')->group(function(){
     Route::delete('/projects/{project}', [ProjectController::class, 'destroy']);
     
     /* Project Materials */
+    Route::get('/projects/{project}/materials', [ProjectMaterialController::class, 'index']);
     Route::post('/projects/{project}/materials', [ProjectMaterialController::class, 'store']);
+    Route::get('/projects/materials/{projectMaterial}', [ProjectMaterialController::class,'show']);
     Route::delete('/projects/materials/{projectMaterial}', [ProjectMaterialController::class, 'destroy']);
     
     /* Project Installations */
+    Route::get('/projects/{project}/installations', [ProjectInstallationController::class, 'index']);
     Route::post('/projects/{project}/installations', [ProjectInstallationController::class, 'store']);
+    Route::get('/projects/installations/{projectInstallation}', [ProjectInstallationController::class, 'show']);
     Route::delete('/projects/installations/{projectInstallation}', [ProjectInstallationController::class, 'destroy']);
     
     /* Project Acceptances */
+    Route::get('/projects/{project}/acceptances', [ProjectAcceptanceController::class, 'index']);
     Route::post('/projects/{project}/acceptances', [ProjectAcceptanceController::class, 'store']);
+    Route::get('/projects/acceptances/{projectAcceptance}', [ProjectAcceptanceController::class, 'show']);
     Route::delete('/projects/acceptances/{projectAcceptance}', [ProjectAcceptanceController::class, 'destroy']);
     
     /* Project Decomms Materials */
+    Route::get('/projects/{project}/decomms', [ProjectDecommController::class, 'index']);
     Route::post('/projects/{project}/decomms', [ProjectDecommController::class, 'store']);
+    Route::get('/projects/decomms/{projectDecomm}', [ProjectDecommController::class, 'show']);
     Route::delete('/projects/decomms/{projectDecomm}', [ProjectDecommController::class, 'destroy']);
     
     /* Project Documentations */
+    Route::get('/projects/{project}/documentations', [ProjectDocumentationController::class, 'index']);
     Route::post('/projects/{project}/documentations', [ProjectDocumentationController::class, 'store']);
+    Route::get('/projects/documentations/{projectDocumentation}', [ProjectDocumentationController::class, 'show']);
     Route::delete('/projects/documentations/{projectDocumentation}', [ProjectDocumentationController::class, 'destroy']);
 
 });

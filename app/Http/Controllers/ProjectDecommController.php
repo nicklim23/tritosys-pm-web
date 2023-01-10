@@ -13,9 +13,11 @@ class ProjectDecommController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Project $project)
     {
         //
+        $projectDecomm = ProjectDecomm::where('project_id', $project->id)->get();
+        return response($projectDecomm, 200);
     }
 
     /**
@@ -53,6 +55,7 @@ class ProjectDecommController extends Controller
     public function show(ProjectDecomm $projectDecomm)
     {
         //
+        return response($projectDecomm, 200);
     }
 
     /**

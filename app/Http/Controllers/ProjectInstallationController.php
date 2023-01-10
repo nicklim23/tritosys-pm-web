@@ -13,9 +13,11 @@ class ProjectInstallationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Project $project)
     {
         //
+        $projectInstallation = ProjectInstallation::where('project_id', $project->id)->get();
+        return response($projectInstallation, 200);
     }
 
     /**
@@ -53,6 +55,7 @@ class ProjectInstallationController extends Controller
     public function show(ProjectInstallation $projectInstallation)
     {
         //
+        return response($projectInstallation, 200);
     }
 
     /**

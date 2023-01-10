@@ -13,9 +13,11 @@ class ProjectAcceptanceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Project $project)
     {
         //
+        $projectAcceptance = ProjectAcceptance::where('project_id', $project->id)->get();
+        return response($projectAcceptance, 200);
     }
 
     /**
@@ -53,6 +55,7 @@ class ProjectAcceptanceController extends Controller
     public function show(ProjectAcceptance $projectAcceptance)
     {
         //
+        return response($projectAcceptance, 200);
     }
 
     /**
