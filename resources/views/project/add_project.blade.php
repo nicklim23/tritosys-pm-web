@@ -121,7 +121,7 @@
           var formData = new FormData(this);
 
            $.ajax({
-               url: "{{url('projects')}}",
+               url: ROUTE.PROJECT.ADD,
                type: "post",
                data: formData,
                processData: false,

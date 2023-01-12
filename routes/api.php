@@ -12,6 +12,7 @@ use App\Http\Controllers\ProjectDecommController;
 use App\Http\Controllers\ProjectDocumentationController;
 use App\Http\Controllers\ProjectInstallationController;
 use App\Http\Controllers\ProjectMaterialController;
+use App\Http\Controllers\ProjectKanbanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,6 +37,7 @@ Route::middleware('auth:api')->group(function(){
     // Route::resource('sites', SiteController::class);
 
     /* Sites */
+    Route::get('/sites/all', [SiteController::class,'api_listing']);
     Route::get('/sites', [SiteController::class,'index']);
     Route::post('/sites', [SiteController::class,'store']);
     Route::get('/sites/{site}', [SiteController::class,'show']);
@@ -43,6 +45,7 @@ Route::middleware('auth:api')->group(function(){
     Route::delete('/sites/{site}', [SiteController::class, 'destroy']);
     
     /* Customer */
+    Route::get('/customers/all', [CustomerController::class,'api_listing']);
     Route::get('/customers', [CustomerController::class,'index']);
     Route::post('/customers', [CustomerController::class,'store']);
     Route::get('/customers/{customer}', [CustomerController::class,'show']);
@@ -51,7 +54,8 @@ Route::middleware('auth:api')->group(function(){
     
     /* Project */
     Route::get('/projects', [ProjectController::class,'index']);
-    Route::post('/projects', [ProjectController::class,'store']);
+    Route::get('/projects/api_add', [ProjectController::class,'api_create']);
+    Route::post('/projects/add', [ProjectController::class,'store']);
     Route::get('/projects/{project}', [ProjectController::class,'show']);
     Route::put('/projects/{project}', [ProjectController::class, 'update']);
     Route::delete('/projects/{project}', [ProjectController::class, 'destroy']);
@@ -85,5 +89,12 @@ Route::middleware('auth:api')->group(function(){
     Route::post('/projects/{project}/documentations', [ProjectDocumentationController::class, 'store']);
     Route::get('/projects/documentations/{projectDocumentation}', [ProjectDocumentationController::class, 'show']);
     Route::delete('/projects/documentations/{projectDocumentation}', [ProjectDocumentationController::class, 'destroy']);
+
+    /* Project Kanbans */
+    Route::get('/projects/{project}/kanbans', [ProjectKanbanController::class, 'index']);
+    Route::post('/projects/{project}/kanbans', [ProjectKanbanController::class, 'store']);
+    Route::get('/projects/kanbans/{projectKanban}', [ProjectKanbanController::class, 'show']);
+    Route::put('/projects/kanbans/{projectKanban}', [ProjectKanbanController::class, 'update']);
+    Route::delete('/projects/kanbans/{projectKanban}', [ProjectKanbanController::class, 'destroy']);
 
 });

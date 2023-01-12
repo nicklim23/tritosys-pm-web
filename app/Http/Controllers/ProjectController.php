@@ -60,15 +60,16 @@ class ProjectController extends Controller
     public function show(Project $project)
     {
         //
-        $customers = Customer::all();
-        $sites = Site::all();
-        $materials = ProjectMaterial::where('project_id', $project->id)->get();
-        $installations = ProjectInstallation::where('project_id', $project->id)->get();
-        $acceptances = ProjectAcceptance::where('project_id', $project->id)->get();
-        $decomms = ProjectDecomm::where('project_id', $project->id)->get();
-        $documentations = ProjectDocumentation::where('project_id', $project->id)->get();
+        // $customers = Customer::all();
+        // $sites = Site::all();
+        // $materials = ProjectMaterial::where('project_id', $project->id)->get();
+        // $installations = ProjectInstallation::where('project_id', $project->id)->get();
+        // $acceptances = ProjectAcceptance::where('project_id', $project->id)->get();
+        // $decomms = ProjectDecomm::where('project_id', $project->id)->get();
+        // $documentations = ProjectDocumentation::where('project_id', $project->id)->get();
         
-        return response(compact('project','customers','sites','materials','installations','acceptances','decomms','documentations'), 200);
+        return response($project, 200);
+        // return response(compact('project','customers','sites','materials','installations','acceptances','decomms','documentations'), 200);
     }
 
     /**
@@ -129,4 +130,17 @@ class ProjectController extends Controller
         $datas = Project::with(['site','customer'])->get();
         return view('project.listing',compact('datas'));
     }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function api_create()
+    {
+        $customers = Customer::select('id', 'company_name as name')->get();
+        $sites = Site::select('id', 'name')->get();
+        return response(compact('customers','sites'));
+    }
+
 }

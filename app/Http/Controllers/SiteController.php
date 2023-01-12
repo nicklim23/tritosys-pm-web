@@ -101,4 +101,16 @@ class SiteController extends Controller
         $datas = Site::all();
         return view('site.listing',compact('datas'));
     }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function api_listing()
+    {
+        //
+        $datas = Site::select('id', 'name')->get();
+        return response($datas, 200);
+    }
 }

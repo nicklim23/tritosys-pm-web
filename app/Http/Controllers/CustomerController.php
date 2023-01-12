@@ -102,4 +102,16 @@ class CustomerController extends Controller
         $datas = Customer::all();
         return view('customer.listing',compact('datas'));
     }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function api_listing()
+    {
+        //
+        $datas = Customer::select('id', 'company_name as name')->get();
+        return response($datas, 200);
+    }
 }

@@ -11,6 +11,7 @@ use App\Http\Controllers\ProjectDecommController;
 use App\Http\Controllers\ProjectDocumentationController;
 use App\Http\Controllers\ProjectInstallationController;
 use App\Http\Controllers\ProjectMaterialController;
+use App\Http\Controllers\ProjectKanbanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -71,7 +72,7 @@ Route::middleware('customAuth')->group(function () {
     /* Project */
     Route::get('/projects', [ProjectController::class,'listing']);
     Route::get('/projects/add', [ProjectController::class,'create']);
-    Route::post('/projects', [ProjectController::class,'store']);
+    Route::post('/projects/add', [ProjectController::class,'store']);
     Route::get('/projects/{project}', [ProjectController::class,'edit']);
     Route::put('/projects/{project}', [ProjectController::class, 'update']);
     Route::delete('/projects/{project}', [ProjectController::class, 'destroy']);
@@ -95,6 +96,11 @@ Route::middleware('customAuth')->group(function () {
     /* Project Documentations */
     Route::post('/projects/{project}/documentations', [ProjectDocumentationController::class, 'store']);
     Route::delete('/projects/documentations/{projectDocumentation}', [ProjectDocumentationController::class, 'destroy']);
+
+    /* Project Kanbans */
+    Route::post('/projects/{project}/kanbans', [ProjectKanbanController::class, 'store']);
+    Route::put('/projects/kanbans/{projectKanban}', [ProjectKanbanController::class, 'update']);
+    Route::delete('/projects/kanbans/{projectKanban}', [ProjectKanbanController::class, 'destroy']);
     
 });
 
