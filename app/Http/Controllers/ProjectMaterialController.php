@@ -4,7 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Project;
 use App\Models\ProjectMaterial;
+use App\Models\Notification;
+
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 
 class ProjectMaterialController extends Controller
 {
@@ -42,6 +48,16 @@ class ProjectMaterialController extends Controller
         $projectMaterial = $request->all();
         $projectMaterial['project_id'] = $project->id;
         $projectMaterial = ProjectMaterial::create($projectMaterial);
+
+        $req_user = Auth::user();
+
+        $notification = Notification::create([
+            'title' => 'Project Material Added',
+            'description' => 'Material for project "'.$project->name.'" successfully added',
+            'user_id' => $req_user->id,
+            'event_id' => $projectMaterial->id,
+            'module' => 'Project'
+        ]);
 
         return response($projectMaterial, 200);
     }

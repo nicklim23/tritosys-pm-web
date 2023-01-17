@@ -352,7 +352,7 @@
                         </div>
 
                         <!-- Kanban -->
-                        <div class="card multisteps-form__panel p-3 border-radius-xl bg-white" data-animation="FadeIn">
+                        <!-- <div class="card multisteps-form__panel p-3 border-radius-xl bg-white" data-animation="FadeIn">
                             <div class="multisteps-form__content">
                                 <div class="row mt-1">
                                     <div class="mt-3 kanban-container">
@@ -402,7 +402,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>

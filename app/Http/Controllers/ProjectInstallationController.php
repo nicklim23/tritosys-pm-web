@@ -4,7 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Project;
 use App\Models\ProjectInstallation;
+use App\Models\Notification;
+
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 
 class ProjectInstallationController extends Controller
 {
@@ -42,6 +48,16 @@ class ProjectInstallationController extends Controller
         $projectInstallation = $request->all();
         $projectInstallation['project_id'] = $project->id;
         $projectInstallation = ProjectInstallation::create($projectInstallation);
+
+        $req_user = Auth::user();
+
+        $notification = Notification::create([
+            'title' => 'Project Installation Added',
+            'description' => 'Installation for project "'.$project->name.'" successfully added',
+            'user_id' => $req_user->id,
+            'event_id' => $projectInstallation->id,
+            'module' => 'Project'
+        ]);
 
         return response($projectInstallation, 200);
     }

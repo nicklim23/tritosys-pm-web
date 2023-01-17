@@ -10,7 +10,13 @@ use App\Models\ProjectInstallation;
 use App\Models\ProjectAcceptance;
 use App\Models\ProjectDecomm;
 use App\Models\ProjectDocumentation;
+use App\Models\Notification;
+
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 
 class ProjectController extends Controller
 {
@@ -48,6 +54,18 @@ class ProjectController extends Controller
     {
         $project = $request->all();
         $project = Project::create($project);
+
+        $req_user = Auth::user();
+        $project_id = $project->id;
+
+        $notification = Notification::create([
+            'title' => 'New Project Added',
+            'description' => 'New project "'.$request->name.'" successfully added',
+            'user_id' => $req_user->id,
+            'event_id' => $project_id,
+            'module' => 'Project'
+        ]);
+
         return response()->json(['status'=>"success"], 200);
     }
 
@@ -101,6 +119,8 @@ class ProjectController extends Controller
      */
     public function update(Request $request, Project $project)
     {
+        $project_id = $project->id;
+
         $project->fill($request->only([
             'name',
             'customer_id',
@@ -110,6 +130,17 @@ class ProjectController extends Controller
             'status'
         ]));
         $project = $project->save();
+
+        $req_user = Auth::user();
+
+        $notification = Notification::create([
+            'title' => 'Project Updated',
+            'description' => 'Project "'.$request->name.'" successfully updated',
+            'user_id' => $req_user->id,
+            'event_id' => $project_id,
+            'module' => 'Project'
+        ]);
+
         return response()->json(['status'=>"success"], 200);
     }
 

@@ -4,7 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Project;
 use App\Models\ProjectDecomm;
+use App\Models\Notification;
+
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 
 class ProjectDecommController extends Controller
 {
@@ -42,6 +48,16 @@ class ProjectDecommController extends Controller
         $projectDecomm = $request->all();
         $projectDecomm['project_id'] = $project->id;
         $projectDecomm = ProjectDecomm::create($projectDecomm);
+
+        $req_user = Auth::user();
+
+        $notification = Notification::create([
+            'title' => 'Project Decomm Material Added',
+            'description' => 'Decomm material for project "'.$project->name.'" successfully added',
+            'user_id' => $req_user->id,
+            'event_id' => $projectDecomm->id,
+            'module' => 'Project'
+        ]);
 
         return response($projectDecomm, 200);
     }

@@ -4,7 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Project;
 use App\Models\ProjectDocumentation;
+use App\Models\Notification;
+
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 
 class ProjectDocumentationController extends Controller
 {
@@ -42,12 +49,23 @@ class ProjectDocumentationController extends Controller
         $projectDocumentation = $request->all();
 
         $path = $request->file('document')->store('Project Documentation');
+        //$path = Storage::putFile('Project Documentation', $request->file('document'));
 
         $projectDocumentation['project_id'] = $project->id;
         $projectDocumentation['document_name'] = $request->file('document')->getClientOriginalName();
         $projectDocumentation['document_path'] = $path;
 
         $projectDocumentation = ProjectDocumentation::create($projectDocumentation);
+
+        $req_user = Auth::user();
+
+        $notification = Notification::create([
+            'title' => 'Project Documentation Added',
+            'description' => 'Documentation for project "'.$project->name.'" successfully added',
+            'user_id' => $req_user->id,
+            'event_id' => $projectDocumentation->id,
+            'module' => 'Project'
+        ]);
 
         return response($projectDocumentation, 200);
     }
