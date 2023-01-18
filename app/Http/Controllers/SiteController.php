@@ -39,6 +39,17 @@ class SiteController extends Controller
     {
         $site = $request->all();
         $site = Site::create($site);
+
+        $req_user = Auth::user();
+
+        $notification = Notification::create([
+            'title' => 'Site Added',
+            'description' => 'Site "'.$request->name.'" successfully added',
+            'user_id' => $req_user->id,
+            'event_id' => $site->id,
+            'module' => 'Site'
+        ]);
+
         return response()->json(['status'=>"success"], 200);
     }
 

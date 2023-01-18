@@ -39,6 +39,15 @@ class CustomerController extends Controller
     {
         $customer = $request->all();
         $customer = Customer::create($customer);
+
+        $notification = Notification::create([
+            'title' => 'Customer Added',
+            'description' => 'Customer "'.$request->name.'" successfully added',
+            'user_id' => $req_user->id,
+            'event_id' => $customer->id,
+            'module' => 'Customer'
+        ]);
+
         return response()->json(['status'=>"success"], 200);
     }
 
