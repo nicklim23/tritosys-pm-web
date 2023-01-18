@@ -55,7 +55,7 @@ class ProjectDecommController extends Controller
             'title' => 'Project Decomm Material Added',
             'description' => 'Decomm material for project "'.$project->name.'" successfully added',
             'user_id' => $req_user->id,
-            'event_id' => $projectDecomm->id,
+            'event_id' => $project->id,
             'module' => 'Project'
         ]);
 

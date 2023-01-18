@@ -55,7 +55,7 @@ class ProjectMaterialController extends Controller
             'title' => 'Project Material Added',
             'description' => 'Material for project "'.$project->name.'" successfully added',
             'user_id' => $req_user->id,
-            'event_id' => $projectMaterial->id,
+            'event_id' => $project->id,
             'module' => 'Project'
         ]);
 

@@ -171,6 +171,16 @@
                                 <i class="fa fa-user me-sm-1"></i>
                                 <span class="d-sm-inline d-none">Admin</span>
                             </a>
+                            <li class="nav-item dropdown px-3 d-flex align-items-center">
+                                <a href="#" class="nav-link text-white p-0" id="dropdownMenuButton" data-bs-toggle="dropdown">
+                                    <i class="fa fa-bell cursor-pointer" style="font-size:20px">
+                                        <span id="unseen_notifications" class="position-absolute top-20 start-80 translate-middle badge badge-sm rounded-pill" style="font-size:8px;background-color:red"></span>
+                                    </i>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu px-2 py-3 me-sm-n4" aria-labelledby="dropdownMenuButton" style="overflow-y: scroll;max-height: 300px;min-height:100px;width:240px" id="dropdown_style">
+                                    <div id="notifications"></div>
+                                </ul>
+                            </li>
                             <a href="{{ url('/logout') }}" class="nav-link text-white font-weight-bold px-0 ms-3">
                                 <i class="fa fa-sign-out me-sm-2"></i>
                             </a>
@@ -247,7 +257,140 @@
             }); // flatpickr
         }
     </script>
-    @yield('pagespecificscripts')
-</body>
 
+    <!-- Notification script -->
+    <script>
+        $(document).ready(function(){
+            load_stuff();
+            function load_stuff(){
+                $.ajax({
+                    url: "{{ url('notifications') }}/{{ session('user_id') }}",
+                    method:"GET",
+                    dataType: 'json',
+                    contentType: "application/json",
+                    success:function(data){
+                        
+                        $('#notifications').empty();
+                        var notifications = JSON.stringify(data.notifications);
+                        var notification = JSON.parse(notifications);
+
+                        var html = '';
+                        var link = '';
+
+                        html += '<meta name="csrf-token" content="{{ csrf_token() }}">';
+                        
+                        for(var i = 0; i < data.counts; i++){
+
+                            if(notification[i]['module'] == "Project"){
+
+                                link_url = "{{ url('projects') }}/";
+                                link = link_url + notification[i]['event_id'];
+                                link_function = "'" + link + "'";
+                                // html += '<a href="{{ url("projects") }}/'+ notification[i]['event_id'] +'"';
+
+                                if(notification[i]['unread'] == 1){
+                                    html += '<a href="' + link + '" style="font-weight:bold" onclick="readStatus(' + notification[i]['id'] + ', ' + link_function + ')">';
+                                }
+                                else if(notification[i]['unread'] == 0){
+                                    // html += ' <style="color:grey">';
+                                    html += '<a href="' + link + '" style="color:grey">';
+                                }
+
+                                html += '<i class="fas fa-business-time mr-2"></i>&nbsp&nbsp&nbsp<span>'+ notification[i]['title'] + ' </span>';
+                                html += '<p>'+ notification[i]['description'] + ' </p>';
+                                html += '</a>';
+                                html += '<div class="dropdown-divider"></div>';
+
+                            }
+                            else if(notification[i]['module'] == "Site"){
+                                
+                                link_url = "{{ url('sites') }}/";
+                                link = link_url + notification[i]['event_id'];
+                                link_function = "'" + link + "'";
+                                // html += '<a href="{{ url("projects") }}/'+ notification[i]['event_id'] +'"';
+
+                                if(notification[i]['unread'] == 1){
+                                    html += '<a href="' + link + '" style="font-weight:bold" onclick="readStatus(' + notification[i]['id'] + ', ' + link_function + ')">';
+                                }
+                                else if(notification[i]['unread'] == 0){
+                                    // html += ' <style="color:grey">';
+                                    html += '<a href="' + link + '" style="color:grey">';
+                                }
+
+                                html += '<i class="fas fa-business-time mr-2"></i>&nbsp&nbsp&nbsp<span>'+ notification[i]['title'] + ' </span>';
+                                html += '<p>'+ notification[i]['description'] + ' </p>';
+                                html += '</a>';
+                                html += '<div class="dropdown-divider"></div>';
+
+                            }
+                            else if(notification[i]['module'] == "Customer"){
+
+                                link_url = "{{ url('customers') }}/";
+                                link = link_url + notification[i]['event_id'];
+                                link_function = "'" + link + "'";
+                                // html += '<a href="{{ url("projects") }}/'+ notification[i]['event_id'] +'"';
+
+                                if(notification[i]['unread'] == 1){
+                                    html += '<a href="' + link + '" style="font-weight:bold" onclick="readStatus(' + notification[i]['id'] + ', ' + link_function + ')">';
+                                }
+                                else if(notification[i]['unread'] == 0){
+                                    // html += ' <style="color:grey">';
+                                    html += '<a href="' + link + '" style="color:grey">';
+                                }
+
+                                html += '<i class="fas fa-business-time mr-2"></i>&nbsp&nbsp&nbsp<span>'+ notification[i]['title'] + ' </span>';
+                                html += '<p>'+ notification[i]['description'] + ' </p>';
+                                html += '</a>';
+                                html += '<div class="dropdown-divider"></div>';
+
+                            }
+                        }
+
+                        $('#notifications').append(html);
+                        if(data.unread != 0){
+                            document.getElementById("unseen_notifications").innerHTML = data.unread;
+                            $('#unseen_notifications').removeClass('dropdown-body text-center mt-4').addClass('dropdown-header');
+                        }
+                        else if(data.counts == 0){
+                            document.getElementById("notifications").innerHTML = 'There is no notification.';
+                            $('#unseen_notifications').removeClass('position-absolute top-20 start-80 translate-middle badge badge-sm rounded-pill');
+                            $("#dropdown_style").css("width", "");
+                            $("#dropdown_style").css("max-height", "");
+                            $("#dropdown_style").css("min-height", "");
+                            $("#dropdown_style").css("overflow-y", "");
+                        }
+                        else{
+                            $('#unseen_notifications').removeClass('position-absolute top-20 start-80 translate-middle badge badge-sm rounded-pill');
+                            document.getElementById("notifications").innerHTML = 'There is no new notification.';
+                        }
+
+                    }
+                });
+                setTimeout(load_stuff, 5000);
+            }
+
+        });
+
+        function readStatus(event_id, link){
+            $.ajaxSetup({
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}
+            });
+            var id = event_id;
+            $.ajax({
+                url: "{{ url('notification-readed') }}/" + id,
+                type:"PUT",
+                dataType: 'json',
+                contentType: "application/json",
+                success:function(data)
+                {
+                    window.location = link;
+                }
+            })
+        }
+
+    </script>
+
+    @yield('pagespecificscripts')
+
+</body>
 </html>

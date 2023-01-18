@@ -12,6 +12,7 @@ use App\Http\Controllers\ProjectDocumentationController;
 use App\Http\Controllers\ProjectInstallationController;
 use App\Http\Controllers\ProjectMaterialController;
 use App\Http\Controllers\ProjectKanbanController;
+use App\Http\Controllers\NotificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -101,6 +102,9 @@ Route::middleware('customAuth')->group(function () {
     Route::post('/projects/{project}/kanbans', [ProjectKanbanController::class, 'store']);
     Route::put('/projects/kanbans/{projectKanban}', [ProjectKanbanController::class, 'update']);
     Route::delete('/projects/kanbans/{projectKanban}', [ProjectKanbanController::class, 'destroy']);
+
+    Route::get('/notifications/{id}', [NotificationController::class, 'listing']);
+    Route::put('notification-readed/{notification}',[NotificationController::class,'notificationReaded']);
     
 });
 

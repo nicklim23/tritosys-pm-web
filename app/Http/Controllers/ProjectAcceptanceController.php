@@ -55,7 +55,7 @@ class ProjectAcceptanceController extends Controller
             'title' => 'Project Acceptance Added',
             'description' => 'Acceptance for project "'.$project->name.'" successfully added',
             'user_id' => $req_user->id,
-            'event_id' => $projectAcceptance->id,
+            'event_id' => $project->id,
             'module' => 'Project'
         ]);
 

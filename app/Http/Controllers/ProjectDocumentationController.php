@@ -63,7 +63,7 @@ class ProjectDocumentationController extends Controller
             'title' => 'Project Documentation Added',
             'description' => 'Documentation for project "'.$project->name.'" successfully added',
             'user_id' => $req_user->id,
-            'event_id' => $projectDocumentation->id,
+            'event_id' => $project->id,
             'module' => 'Project'
         ]);
 
