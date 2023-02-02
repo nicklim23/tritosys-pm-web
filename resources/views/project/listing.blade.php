@@ -51,7 +51,11 @@
                                 <td class="text-sm font-weight-normal">{{$project->project_manager}}</td>
                                 <td class="text-sm font-weight-normal">{{$project->date}}</td>
                                 <td>
+                                    @if($project->status=="Active")
+                                    <span class="badge badge-success badge-sm">{{$project->status}}</span>
+                                    @else
                                     <span class="badge badge-warning badge-sm">{{$project->status}}</span>
+                                    @endif
                                 </td>
                                 <td class="text-sm">
                                     <a href="{{url('projects')}}/{{$project->id}}" data-bs-toggle="tooltip" data-bs-original-title="More">

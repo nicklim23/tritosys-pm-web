@@ -14,10 +14,10 @@
                                 <div class="col-8">
                                     <div class="numbers">
                                         <p class="text-sm mb-0 text-uppercase font-weight-bold">
-                                            Pending<br>Inspection Request
+                                            Total<br>Projects
                                         </p>
                                         <h5 class="font-weight-bolder mt-2">
-                                            10
+                                            4
                                         </h5>
                                     </div>
                                 </div>
@@ -38,10 +38,10 @@
                                 <div class="col-8">
                                     <div class="numbers">
                                         <p class="text-sm mb-0 text-uppercase font-weight-bold">
-                                            Ongoing<br>Inspection Work
+                                            Total<br>Sites
                                         </p>
                                         <h5 class="font-weight-bolder mt-2">
-                                            6
+                                            3
                                         </h5>
                                     </div>
                                 </div>
@@ -61,9 +61,9 @@
                             <div class="row">
                                 <div class="col-8">
                                     <div class="numbers">
-                                        <p class="text-sm mb-0 text-uppercase font-weight-bold">Completed<br>Inspection Work</p>
+                                        <p class="text-sm mb-0 text-uppercase font-weight-bold">Total<br>Customers</p>
                                         <h5 class="font-weight-bolder mt-2">
-                                            30
+                                            5
                                         </h5>
                                     </div>
                                 </div>
@@ -80,128 +80,122 @@
             </div>
         </div>
     </div>
-    <div class="row mb-lg-7 mt-3">
-        <div class="col-xl-8">
-          <div class="card card-calendar">
-            <div class="card-body p-3">
-              <div class="calendar" data-bs-toggle="calendar" id="calendar"></div>
-            </div>
-          </div>
-        </div>
-        <div class="col-xl-4">
-          <div class="row">
-            <div class="col-xl-12 col-md-6 mt-xl-0 mt-4">
-              <div class="card">
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <div class="card z-index-2">
                 <div class="card-header p-3 pb-0">
-                  <h6 class="mb-0 text-sm">Upcoming Inspection</h6>
+                    <h6>Summary Line chart</h6>
                 </div>
-                <div class="card-body border-radius-lg p-3">
-                  <div class="d-flex">
-                    <div>
-                      <div class="icon icon-shape bg-warning-soft shadow text-center border-radius-md shadow-none">
-                        <i class="ni ni-calendar-grid-58 text-lg text-warning text-gradient opacity-10" aria-hidden="true"></i>
-                      </div>
+                <div class="card-body p-3">
+                    <div class="chart">
+                        <canvas id="line-chart" class="chart-canvas" height="300"></canvas>
                     </div>
-                    <div class="ms-3">
-                      <div class="numbers">
-                        <h6 class="mb-1 text-dark text-sm">Building Inspection</h6>
-                        <span class="text-sm">11 Nov 2022, at 12:30 PM</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="d-flex mt-4">
-                    <div>
-                      <div class="icon icon-shape bg-warning-soft shadow text-center border-radius-md shadow-none">
-                        <i class="ni ni-calendar-grid-58 text-lg text-warning text-gradient opacity-10" aria-hidden="true"></i>
-                      </div>
-                    </div>
-                    <div class="ms-3">
-                      <div class="numbers">
-                        <h6 class="mb-1 text-dark text-sm">Piling Inspection</h6>
-                        <span class="text-sm">13 Nov 2022, at 2:30 PM</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="d-flex mt-4">
-                    <div>
-                      <div class="icon icon-shape bg-warning-soft shadow text-center border-radius-md shadow-none">
-                        <i class="ni ni-calendar-grid-58 text-lg text-warning text-gradient opacity-10" aria-hidden="true"></i>
-                      </div>
-                    </div>
-                    <div class="ms-3">
-                      <div class="numbers">
-                        <h6 class="mb-1 text-dark text-sm">Electrical Inspection</h6>
-                        <span class="text-sm">15 Nov 2022, at 8:30 PM</span>
-                      </div>
-                    </div>
-                  </div>
                 </div>
-              </div>
             </div>
-          </div>
         </div>
-      </div>
+    </div>
 @endsection
 
 @section('pagespecificscripts')
-<script src="{{asset('assets/js/plugins/fullcalendar.min.js')}}"></script>
-<script>
-    var calendar = new FullCalendar.Calendar(document.getElementById("calendar"), {
-      contentHeight: 'auto',
-      initialView: "dayGridMonth",
-      headerToolbar: {
-        start: 'title', // will normally be on the left. if RTL, will be on the right
-        center: '',
-        end: 'today prev,next' // will normally be on the right. if RTL, will be on the left
-      },
-      selectable: false,
-      editable: false,
-      initialDate: '{{date('Y-m-d')}}',
-      events: [
-        {
-          title: 'Building Inspection',
-          start: '2022-11-11',
-          end: '2022-11-11',
-          className: 'bg-gradient-danger',
-        },
-        {
-          title: 'Piling Inspection',
-          start: '2022-11-13',
-          end: '2022-11-13',
-          className: 'bg-gradient-success'
-        },
-        {
-          title: 'Electrical Inspection',
-          start: '2022-11-15',
-          end: '2022-11-15',
-          className: 'bg-gradient-info'
-        },
+    <script src="{{ asset('assets/js/plugins/chartjs.min.js') }}"></script>
+    <script>
+        // Line chart
+        var ctx1 = document.getElementById("line-chart").getContext("2d");
 
-      ],
-      views: {
-        month: {
-          titleFormat: {
-            month: "long",
-            year: "numeric"
-          }
-        },
-        agendaWeek: {
-          titleFormat: {
-            month: "long",
-            year: "numeric",
-            day: "numeric"
-          }
-        },
-        agendaDay: {
-          titleFormat: {
-            month: "short",
-            year: "numeric",
-            day: "numeric"
-          }
-        }
-      },
-    });
-
-    calendar.render();
-  </script>
+        new Chart(ctx1, {
+            type: "line",
+            data: {
+                labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                datasets: [{
+                        label: "Projects",
+                        tension: 0.4,
+                        borderWidth: 0,
+                        pointRadius: 2,
+                        pointBackgroundColor: "#5e72e4",
+                        borderColor: "#5e72e4",
+                        borderWidth: 3,
+                        data: [5, 4, 3, 22, 15, 25, 40, 23, 50],
+                        maxBarThickness: 6
+                    },
+                    {
+                        label: "Sites",
+                        tension: 0.4,
+                        borderWidth: 0,
+                        pointRadius: 2,
+                        pointBackgroundColor: "#3A416F",
+                        borderColor: "#3A416F",
+                        borderWidth: 3,
+                        data: [3, 9, 4, 14, 29, 29, 34, 23, 40],
+                        maxBarThickness: 6
+                    },
+                    {
+                        label: "Customers",
+                        tension: 0.4,
+                        borderWidth: 0,
+                        pointRadius: 2,
+                        pointBackgroundColor: "#17c1e8",
+                        borderColor: "#17c1e8",
+                        borderWidth: 3,
+                        data: [4, 8, 7, 9, 3, 9, 14, 13, 20],
+                        maxBarThickness: 6
+                    },
+                ],
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false,
+                    }
+                },
+                interaction: {
+                    intersect: false,
+                    mode: 'index',
+                },
+                scales: {
+                    y: {
+                        grid: {
+                            drawBorder: false,
+                            display: true,
+                            drawOnChartArea: true,
+                            drawTicks: false,
+                            borderDash: [5, 5]
+                        },
+                        ticks: {
+                            display: true,
+                            padding: 10,
+                            color: '#b2b9bf',
+                            font: {
+                                size: 11,
+                                family: "Open Sans",
+                                style: 'normal',
+                                lineHeight: 2
+                            },
+                        }
+                    },
+                    x: {
+                        grid: {
+                            drawBorder: false,
+                            display: true,
+                            drawOnChartArea: true,
+                            drawTicks: true,
+                            borderDash: [5, 5]
+                        },
+                        ticks: {
+                            display: true,
+                            color: '#b2b9bf',
+                            padding: 10,
+                            font: {
+                                size: 11,
+                                family: "Open Sans",
+                                style: 'normal',
+                                lineHeight: 2
+                            },
+                        }
+                    },
+                },
+            },
+        });
+    </script>
 @endsection

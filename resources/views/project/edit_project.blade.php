@@ -1,6 +1,27 @@
 @extends('layout.app')
 
 @section('customstyle')
+<style>
+    .multisteps-form__progress-btn {
+        font-size: 13px;
+    }
+    .kanban-container {
+        width: 2000px !important;
+        overflow: inherit;
+    }
+    .kanban-info {
+        flex-direction: column;
+    }
+    .kanban-created {
+        font-size: 12px;
+        color: grey;
+    }
+    .kanban-datetime {
+        font-size: 12px;
+        color: grey;
+        margin-top: -2px;
+    }
+</style>
 @stop
 
 @section('content')
@@ -352,57 +373,17 @@
                         </div>
 
                         <!-- Kanban -->
-                        <!-- <div class="card multisteps-form__panel p-3 border-radius-xl bg-white" data-animation="FadeIn">
+                        <div class="multisteps-form__panel p-3" data-animation="FadeIn">
                             <div class="multisteps-form__content">
-                                <div class="row mt-1">
+                                <div class="container-fluid py-4">
                                     <div class="mt-3 kanban-container">
                                         <div class="py-2 min-vh-100 d-inline-flex" style="overflow-x: auto">
                                             <div id="myKanban"></div>
                                         </div>
                                     </div>
-
-                                    <div class="modal fade" id="jkanban-info-modal" style="display: none" tabindex="-1" role="dialog">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="h5 modal-title">Task details</h5>
-                                                    <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="pt-4 modal-body">
-                                                    <input id="jkanban-task-id" class="d-none" />
-                                                    <div class="mb-4 input-group">
-                                                        <span class="input-group-text">
-                                                            <i class="far fa-edit"></i>
-                                                        </span>
-                                                        <input class="form-control" placeholder="Task Title" type="text" id="jkanban-task-title" />
-                                                    </div>
-                                                    <div class="mb-4 input-group">
-                                                        <span class="input-group-text">
-                                                            <i class="fas fa-user"></i>
-                                                        </span>
-                                                        <input class="form-control" placeholder="Task Assignee" type="text" id="jkanban-task-assignee" />
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <textarea class="form-control" placeholder="Task Description" id="jkanban-task-description" rows="4"></textarea>
-                                                    </div>
-                                                    <div class="alert alert-success d-none">Changes saved!</div>
-                                                    <div class="text-end">
-                                                        <button class="m-1 btn btn-primary" id="jkanban-update-task" data-toggle="modal" data-target="#jkanban-info-modal">
-                                                            Save changes
-                                                        </button>
-                                                        <button class="m-1 btn btn-secondary" data-dismiss="modal" data-target="#jkanban-info-modal">
-                                                            Close
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
-                        </div> -->
+                        </div>
                     </div>
                 </div>
             </div>
@@ -622,6 +603,47 @@
                     <button type="submit" class="btn bg-gradient-primary">Submit</button>
                 </div>
             </form>
+        </div>
+    </div>
+</div>
+
+<!-- Kanban Modal -->
+<div class="modal fade" id="jkanban-info-modal" style="display: none" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="h5 modal-title">Task details</h5>
+                <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="pt-4 modal-body">
+                <input id="jkanban-task-id" class="d-none" />
+                <div class="mb-4 input-group">
+                    <span class="input-group-text">
+                        <i class="far fa-edit"></i>
+                    </span>
+                    <input class="form-control" placeholder="Task Title" type="text" id="jkanban-task-title" />
+                </div>
+                <div class="mb-4 input-group">
+                    <span class="input-group-text">
+                        <i class="fas fa-user"></i>
+                    </span>
+                    <input class="form-control" placeholder="Task Assignee" type="text" id="jkanban-task-assignee" />
+                </div>
+                <div class="form-group">
+                    <textarea class="form-control" placeholder="Task Description" id="jkanban-task-description" rows="4"></textarea>
+                </div>
+                <div class="alert alert-success d-none">Changes saved!</div>
+                <div class="text-end">
+                    <button class="m-1 btn btn-primary" id="jkanban-update-task" data-toggle="modal" data-target="#jkanban-info-modal">
+                        Save changes
+                    </button>
+                    <button type="button" class="m-1 btn btn-secondary" data-bs-dismiss="modal">
+                        Close
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -985,8 +1007,8 @@
                 var KanbanTest = new jKanban({
                     element: "#myKanban",
                     gutter: "10px",
-                    widthBoard: "450px",
-                    
+                    widthBoard: "350px",
+                    responsivePercentage: false,   
                     click: el => {
 
                         let jkanbanInfoModal = document.getElementById("jkanban-info-modal");
@@ -1057,20 +1079,22 @@
                         }
                     },
 
-                    addItemButton: true,
+                    addItemButton: false,
                     boards: [
                         {
                             id: "_pending",
-                            title: 'Pending <div style="float:right;"><button type="submit" class="btn bg-gradient-success btn-sm pull-end" data-bs-toggle="modal" data-bs-target="#jkanban-info-modal">Add</button></div>',
+                            title: 'Pending <div style="float:right;"><button type="button" class="btn bg-gradient-success btn-sm pull-end" data-bs-toggle="modal" data-bs-target="#jkanban-info-modal">+</button></div>',
                             item: [
                                 {
                                     id: "_task_1_title_id",
-                                    title: '<p class="text mb-0">Click me to change title</p>',
+                                    title: '<p class="text mb-0">Pending Task A</p><div class="d-flex kanban-info mt-2"><span class="kanban-created"><b>Added By: </b> Admin</span><span class="kanban-datetime">11 Jan 2023 09:45AM</span></div>',
+                                    description: "Complete this task within 2 weeks",
                                     class: ["border-radius-md"]
                                 },
                                 {
                                     id: "_task_2_title_id",
-                                    title: '<p class="text mb-0">Drag me to "In progress" section</p>',
+                                    title: '<p class="text mb-0">Pending Task B</p><div class="d-flex kanban-info mt-2"><span class="kanban-created"><b>Added By: </b> Admin</span><span class="kanban-datetime">10 Jan 2023 10:57AM</span></div>',
+                                    description: "Complete this task within 2 weeks",
                                     class: ["border-radius-md"]
                                 },
                                 
@@ -1078,21 +1102,21 @@
                         },
                         {
                             id: "_in_progress",
-                            title: "In progress",
+                            title: 'In progress <div style="float:right;"><button type="button" class="btn bg-gradient-success btn-sm pull-end" data-bs-toggle="modal" data-bs-target="#jkanban-info-modal">+</button></div>',
                             item: [
                                 {
                                     id: "_task_3_title_id",
-                                    title: '<span class="mt-2 badge badge-sm bg-gradient-warning">Errors</span><p class="text mt-2">Fix Firefox errors</p><div class="d-flex"><div> <i class="fa fa-paperclip me-1 text-sm"></i><span class="text-sm">11</span></div><div class="avatar-group ms-auto"><a href="javascript:;" class="avatar avatar-xs me-2 rounded-circle" data-toggle="tooltip" data-original-title="Jana Lucie"><img alt="Image placeholder" src="{{ asset("assets/img/team-3.jpg") }}" class=""></a><a href="javascript:;" class="avatar avatar-xs me-2 rounded-circle" data-toggle="tooltip" data-original-title="Jessica Rowland"><img alt="Image placeholder" src="{{ asset("assets/img/team-2.jpg") }}" class=""></a></div></div>',
+                                    title: '<p class="text mb-0">In Progress A</p><div class="d-flex kanban-info mt-2"><span class="kanban-created"><b>Added By: </b> Admin</span><span class="kanban-datetime">12 Jan 2023 11:17AM</span></div>',
                                     class: ["border-radius-md"]
                                 },
                                 {
                                     id: "_task_4_title_id",
-                                    title: '<span class="mt-2 badge badge-sm bg-gradient-info">Updates</span><p class="text mt-2">Argon Dashboard PRO - Angular 11</p><div class="d-flex"><div> <i class="fa fa-paperclip me-1 text-sm"></i><span class="text-sm">3</span></div><div class="avatar-group ms-auto"><a href="javascript:;" class="avatar avatar-xs me-2 rounded-circle" data-toggle="tooltip" data-original-title="Jana Lucie"><img alt="Image placeholder" src="{{ asset("assets/img/team-5.jpg") }}" class=""></a><a href="javascript:;" class="avatar avatar-xs me-2 rounded-circle" data-toggle="tooltip" data-original-title="Jessica Rowland"><img alt="Image placeholder" src="{{ asset("assets/img/team-4.jpg") }}" class=""></a></div></div>',
+                                    title: '<p class="text mb-0">In Progress B</p><div class="d-flex kanban-info mt-2"><span class="kanban-created"><b>Added By: </b> Admin</span><span class="kanban-datetime">12 Jan 2023 01:23PM</span></div>',
                                     class: ["border-radius-md"]
                                 },
                                 {
-                                    id: "_task_do_something_4_id",
-                                    title: '<img src="{{ asset("assets/img/meeting.jpg") }}" class="w-100"><span class="mt-3 badge badge-sm bg-gradient-info">Updates</span><p class="text mt-2">Vue 3 Updates</p><div class="d-flex"><div> <i class="fa fa-paperclip me-1 text-sm"></i><span class="text-sm">9</span></div><div class="avatar-group ms-auto"><a href="javascript:;" class="avatar avatar-xs me-2 rounded-circle" data-toggle="tooltip" data-original-title="Jessica Rowland"><img alt="Image placeholder" src="{{ asset("assets/img/team-1.jpg") }}" class=""></a><a href="javascript:;" class="avatar avatar-xs rounded-circle me-2" data-toggle="tooltip" data-original-title="Audrey Love"><img alt="Image placeholder" src="{{ asset("assets/img/team-2.jpg") }}" class="rounded-circle"></a><a href="javascript:;" class="avatar avatar-xs me-2 rounded-circle" data-toggle="tooltip" data-original-title="Michael Lewis"><img alt="Image placeholder" src="{{ asset("assets/img/team-4.jpg") }}" class="rounded-circle"></a></div></div>',
+                                    id: "_task_4_title_id",
+                                    title: '<p class="text mb-0">In Progress C</p><div class="d-flex kanban-info mt-2"><span class="kanban-created"><b>Added By: </b> Admin</span><span class="kanban-datetime">12 Jan 2023 04:36PM</span></div>',
                                     assignee: "Done Joe",
                                     description: "This task's description is for something, but not for anything",
                                     class: ["border-radius-md"]
@@ -1101,29 +1125,15 @@
                         },
                         {
                             id: "_completed",
-                            title: "Completed",
+                            title: 'Completed <div style="float:right;"><button type="button" class="btn bg-gradient-success btn-sm pull-end" data-bs-toggle="modal" data-bs-target="#jkanban-info-modal">+</button></div>',
                             item: [
                                 {
                                     id: "_task_do_something_2_id",
-                                    title: '<span class="mt-2 badge badge-sm bg-gradient-warning">In Testing</span><p class="text mt-2">Responsive Changes</p><div class="d-flex"><div> <i class="fa fa-paperclip me-1 text-sm"></i><span class="text-sm">11</span></div><div class="avatar-group ms-auto"><a href="javascript:;" class="avatar avatar-xs me-2 rounded-circle" data-toggle="tooltip" data-original-title="Jana Lucie"><img alt="Image placeholder" src="{{ asset("assets/img/team-3.jpg") }}" class=""></a><a href="javascript:;" class="avatar avatar-xs me-2 rounded-circle" data-toggle="tooltip" data-original-title="Jessica Rowland"><img alt="Image placeholder" src="{{ asset("assets/img/team-2.jpg") }}" class=""></a></div></div>',
+                                    title: '<p class="text mb-0">Completed A</p><div class="d-flex kanban-info mt-2"><span class="kanban-created"><b>Added By: </b> Admin</span><span class="kanban-datetime">15 Jan 2023 03:16PM</span></div>',
                                     assignee: "Done Joe",
                                     description: "This task's description is for something, but not for anything",
                                     class: ["border-radius-md"]
                                 },
-                                {
-                                    id: "_task_run_id",
-                                    title: '<span class="mt-2 badge badge-sm bg-gradient-success">In review</span><p class="text mt-2 mb-1">Change images dimension</p><div class="col"><div class="progress progressm mb-3 w5"><div class="progress-bar bg-gradient-success" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%;"></div></div></div><div class="d-flex"><div class="avatar-group ms-auto"><a href="javascript:;" class="avatar avatar-xs me-2 rounded-circle" data-toggle="tooltip" data-original-title="Jessica Rowland"><img alt="Image placeholder" src="{{ asset("assets/img/team-3.jpg") }}" class=""></a></div></div>',
-                                    assignee: "Done Joe",
-                                    description: "This task's description is for something, but not for anything",
-                                    class: ["border-radius-md"]
-                                },
-                                {
-                                    id: "_task_do_something_3_id",
-                                    title: '<span class="mt-2 badge badge-sm bg-gradient-info">In Review</span><p class="text mt-2 mb-1">Update Links</p><div class="col"><div class="progress progressm mb-3 w5"><div class="progress-bar bg-gradient-info" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div></div></div><div class="d-flex"><div> <i class="fa fa-paperclip me-1 text-sm"></i><span class="text-sm">6</span></div><div class="avatar-group ms-auto"><a href="javascript:;" class="avatar avatar-xs me-2 rounded-circle" data-toggle="tooltip" data-original-title="Jana Lucie"><img alt="Image placeholder" src="{{ asset("assets/img/team-5.jpg") }}" class=""></a><a href="javascript:;" class="avatar avatar-xs me-2 rounded-circle" data-toggle="tooltip" data-original-title="Mike Alis"><img alt="Image placeholder" src="{{ asset("assets/img/team-1.jpg") }}" class=""></a></div></div>',
-                                    assignee: "Done Joe",
-                                    description: "This task's description is for something, but not for anything",
-                                    class: ["border-radius-md"]
-                                }
                             ]
                         }
                     ]
