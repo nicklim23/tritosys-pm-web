@@ -425,15 +425,15 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label class="col-form-label">Collection Date:</label>
+                        <label class="col-form-label">Collection Date:<b style="color:red;">*</b></label>
                         <input type="date" name="collection_date" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label class="col-form-label">Collected By:</label>
+                        <label class="col-form-label">Collected By:<b style="color:red;">*</b></label>
                         <input type="text" name="collected_by" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label class="col-form-label">Remarks:</label>
+                        <label class="col-form-label">Remarks:<b style="color:red;">*</b></label>
                         <textarea name="remarks" rows="3" class="form-control"></textarea>
                     </div>
                 </div>
@@ -461,27 +461,27 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label class="col-form-label">Scope:</label>
+                        <label class="col-form-label">Scope:<b style="color:red;">*</b></label>
                         <input type="text" name="scope" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label class="col-form-label">Team:</label>
+                        <label class="col-form-label">Team:<b style="color:red;">*</b></label>
                         <input type="text" name="team" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label class="col-form-label">Start Date:</label>
+                        <label class="col-form-label">Start Date:<b style="color:red;">*</b></label>
                         <input type="date" name="start_date" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label class="col-form-label">Complete Date:</label>
+                        <label class="col-form-label">Complete Date:<b style="color:red;">*</b></label>
                         <input type="date" name="complete_date" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label class="col-form-label">Week:</label>
+                        <label class="col-form-label">Week:<b style="color:red;">*</b></label>
                         <input type="number" name="week" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label class="col-form-label">Remarks:</label>
+                        <label class="col-form-label">Remarks:<b style="color:red;">*</b></label>
                         <textarea name="remarks" rows="3" class="form-control"></textarea>
                     </div>
                 </div>
@@ -509,19 +509,19 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label class="col-form-label">Details Received:</label>
+                        <label class="col-form-label">Details Received:<b style="color:red;">*</b></label>
                         <input type="text" name="details_received" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label class="col-form-label">Acceptance Date:</label>
+                        <label class="col-form-label">Acceptance Date:<b style="color:red;">*</b></label>
                         <input type="date" name="acceptance_date" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label class="col-form-label">Type:</label>
+                        <label class="col-form-label">Type:<b style="color:red;">*</b></label>
                         <input type="text" name="type" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label class="col-form-label">Remarks:</label>
+                        <label class="col-form-label">Remarks:<b style="color:red;">*</b></label>
                         <textarea name="remarks" rows="3" class="form-control"></textarea>
                     </div>
                 </div>
@@ -549,15 +549,15 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label class="col-form-label">Submission Date:</label>
+                        <label class="col-form-label">Submission Date:<b style="color:red;">*</b></label>
                         <input type="date" name="submission_date" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label class="col-form-label">Status:</label>
+                        <label class="col-form-label">Status:<b style="color:red;">*</b></label>
                         <input type="text" name="status" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label class="col-form-label">Remarks:</label>
+                        <label class="col-form-label">Remarks:<b style="color:red;">*</b></label>
                         <textarea name="remarks" rows="3" class="form-control"></textarea>
                     </div>
                 </div>
@@ -585,35 +585,35 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label class="col-form-label">Document:</label>
+                        <label class="col-form-label">Document:<b style="color:red;">*</b></label>
                         <input type="file" name="document" id="document" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label class="col-form-label">Details Received:</label>
+                        <label class="col-form-label">Details Received:<b style="color:red;">*</b></label>
                         <input type="text" name="details_received" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label class="col-form-label">Document Type:</label>
+                        <label class="col-form-label">Document Type:<b style="color:red;">*</b></label>
                         <input type="text" name="document_type" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label class="col-form-label">Submission Date:</label>
+                        <label class="col-form-label">Submission Date:<b style="color:red;">*</b></label>
                         <input type="date" name="submission_date" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label class="col-form-label">WCR Date:</label>
+                        <label class="col-form-label">WCR Date:<b style="color:red;">*</b></label>
                         <input type="date" name="wcr_date" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label class="col-form-label">WCR Status:</label>
+                        <label class="col-form-label">WCR Status:<b style="color:red;">*</b></label>
                         <input type="text" name="wcr_status" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label class="col-form-label">Status:</label>
+                        <label class="col-form-label">Status:<b style="color:red;">*</b></label>
                         <input type="text" name="status" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label class="col-form-label">Remarks:</label>
+                        <label class="col-form-label">Remarks:<b style="color:red;">*</b></label>
                         <textarea name="remarks" rows="3" class="form-control"></textarea>
                     </div>
                 </div>
