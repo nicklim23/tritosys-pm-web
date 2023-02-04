@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -81,5 +82,10 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         //
+    }
+
+    public function profile(){
+        $user = User::with(['group','grouptype','role','company'])->where('id', '=', Auth::user()->id)->first();
+        return response()->json($user,200);
     }
 }

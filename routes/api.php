@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ProjectAcceptanceController;
 use App\Http\Controllers\ProjectDecommController;
@@ -13,6 +14,7 @@ use App\Http\Controllers\ProjectDocumentationController;
 use App\Http\Controllers\ProjectInstallationController;
 use App\Http\Controllers\ProjectMaterialController;
 use App\Http\Controllers\ProjectKanbanController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -97,4 +99,9 @@ Route::middleware('auth:api')->group(function(){
     Route::put('/projects/kanbans/{projectKanban}', [ProjectKanbanController::class, 'update']);
     Route::delete('/projects/kanbans/{projectKanban}', [ProjectKanbanController::class, 'destroy']);
 
+    //User Profile
+    Route::get('/profile',[UserController::class,'profile']);
+
+    //Notification
+    Route::get('/notifications',[NotificationController::class,'index']);
 });
