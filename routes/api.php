@@ -103,5 +103,8 @@ Route::middleware('auth:api')->group(function(){
     Route::get('/profile',[UserController::class,'profile']);
 
     //Notification
+    Route::post('/fcmtoken',[NotificationController::class,'setFCMToken']);
     Route::get('/notifications',[NotificationController::class,'index']);
+    Route::put('/notification/readed/{notification}',[NotificationController::class,'notificationReaded']);
+    Route::get('/notification-summary',[NotificationController::class,'notificationSummary']);
 });

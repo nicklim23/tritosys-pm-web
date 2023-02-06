@@ -51,13 +51,14 @@ class ProjectInstallationController extends Controller
 
         $req_user = Auth::user();
 
-        $notification = Notification::create([
+        $notification = new NotificationController();
+        $notification->sendNotification(collect([
             'title' => 'Project Installation Added',
-            'description' => 'Installation for project "'.$project->name.'" successfully added',
+            'description' => 'Installation for project "' . $project->name . '" successfully added',
             'user_id' => $req_user->id,
             'event_id' => $project->id,
             'module' => 'Project'
-        ]);
+        ]));
 
         return response($projectInstallation, 200);
     }

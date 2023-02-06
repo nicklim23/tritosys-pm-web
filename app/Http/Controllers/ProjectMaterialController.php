@@ -51,13 +51,14 @@ class ProjectMaterialController extends Controller
 
         $req_user = Auth::user();
 
-        $notification = Notification::create([
+        $notification = new NotificationController();
+        $notification->sendNotification(collect([
             'title' => 'Project Material Added',
-            'description' => 'Material for project "'.$project->name.'" successfully added',
+            'description' => 'Material for project "' . $project->name . '" successfully added',
             'user_id' => $req_user->id,
             'event_id' => $project->id,
             'module' => 'Project'
-        ]);
+        ]));
 
         return response($projectMaterial, 200);
     }

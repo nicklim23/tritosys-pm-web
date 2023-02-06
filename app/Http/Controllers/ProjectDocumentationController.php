@@ -59,13 +59,15 @@ class ProjectDocumentationController extends Controller
 
         $req_user = Auth::user();
 
-        $notification = Notification::create([
+        $notification = new NotificationController();
+        $notification->sendNotification(collect([
             'title' => 'Project Documentation Added',
-            'description' => 'Documentation for project "'.$project->name.'" successfully added',
+            'description' => 'Documentation for project "' . $project->name . '" successfully added',
             'user_id' => $req_user->id,
             'event_id' => $project->id,
             'module' => 'Project'
-        ]);
+        ]));
+
 
         return response($projectDocumentation, 200);
     }

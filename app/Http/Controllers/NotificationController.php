@@ -93,7 +93,7 @@ class NotificationController extends Controller
     {
         $user = Auth::user();
         $user = User::where('id', $user->id)->first();
-        $user->lw_fcm_token = $request->token;
+        $user->pm_fcm_token = $request->token;
         $user->save();
         return response()->json(['status' => 'success']);
     }
@@ -110,7 +110,7 @@ class NotificationController extends Controller
         $notification = Notification::create($data->toArray());
         $notification->save();
 
-        $firebaseToken = User::where('id', $data->get('user_id'))->whereNotNull('lw_fcm_token')->pluck('lw_fcm_token')->first();
+        $firebaseToken = User::where('id', $data->get('user_id'))->whereNotNull('pm_fcm_token')->pluck('pm_fcm_token')->first();
 
         if ($firebaseToken === null) return;
 
@@ -178,7 +178,7 @@ class NotificationController extends Controller
     public function notificationSummary()
     {
         $user = Auth::user();
-        $summary=DB::table("notifications")->selectRaw('SUM(unread=1) as unread,COUNT(*) as total')->where('user_id',$user->id)->first();
+        $summary=DB::table("notifications")->selectRaw('COALESCE(SUM(unread=1), 0) as unread,COUNT(*) as total')->where('user_id',$user->id)->first();
         return response()->json($summary);
     }
 }

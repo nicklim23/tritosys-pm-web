@@ -51,13 +51,14 @@ class ProjectDecommController extends Controller
 
         $req_user = Auth::user();
 
-        $notification = Notification::create([
+        $notification = new NotificationController();
+        $notification->sendNotification(collect([
             'title' => 'Project Decomm Material Added',
-            'description' => 'Decomm material for project "'.$project->name.'" successfully added',
+            'description' => 'Decomm material for project "' . $project->name . '" successfully added',
             'user_id' => $req_user->id,
             'event_id' => $project->id,
             'module' => 'Project'
-        ]);
+        ]));
 
         return response($projectDecomm, 200);
     }

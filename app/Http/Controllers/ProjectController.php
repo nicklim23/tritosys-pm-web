@@ -28,7 +28,7 @@ class ProjectController extends Controller
     public function index()
     {
         //
-        $datas = Project::with(['site','customer'])->paginate(50);
+        $datas = Project::with(['site', 'customer'])->paginate(50);
         return response($datas, 200);
     }
 
@@ -41,7 +41,7 @@ class ProjectController extends Controller
     {
         $customers = Customer::all();
         $sites = Site::all();
-        return view('project.add_project',compact('customers','sites'));
+        return view('project.add_project', compact('customers', 'sites'));
     }
 
     /**
@@ -58,15 +58,17 @@ class ProjectController extends Controller
         $req_user = Auth::user();
         $project_id = $project->id;
 
-        $notification = Notification::create([
+        $notification = new NotificationController();
+        $notification->sendNotification(collect([
             'title' => 'New Project Added',
-            'description' => 'New project "'.$request->name.'" successfully added',
+            'description' => 'New project "' . $request->name . '" successfully added',
             'user_id' => $req_user->id,
             'event_id' => $project_id,
             'module' => 'Project'
-        ]);
+        ]));
 
-        return response()->json(['status'=>"success"], 200);
+
+        return response()->json(['status' => "success"], 200);
     }
 
     /**
@@ -85,7 +87,7 @@ class ProjectController extends Controller
         // $acceptances = ProjectAcceptance::where('project_id', $project->id)->get();
         // $decomms = ProjectDecomm::where('project_id', $project->id)->get();
         // $documentations = ProjectDocumentation::where('project_id', $project->id)->get();
-        
+
         return response($project, 200);
         // return response(compact('project','customers','sites','materials','installations','acceptances','decomms','documentations'), 200);
     }
@@ -105,9 +107,8 @@ class ProjectController extends Controller
         $acceptances = ProjectAcceptance::where('project_id', $project->id)->get();
         $decomms = ProjectDecomm::where('project_id', $project->id)->get();
         $documentations = ProjectDocumentation::where('project_id', $project->id)->get();
-        
-        return view('project.edit_project',compact('project','customers','sites','materials','installations','acceptances','decomms','documentations'));
-        
+
+        return view('project.edit_project', compact('project', 'customers', 'sites', 'materials', 'installations', 'acceptances', 'decomms', 'documentations'));
     }
 
     /**
@@ -133,15 +134,16 @@ class ProjectController extends Controller
 
         $req_user = Auth::user();
 
-        $notification = Notification::create([
+        $notification = new NotificationController();
+        $notification->sendNotification(collect([
             'title' => 'Project Updated',
-            'description' => 'Project "'.$request->name.'" successfully updated',
+            'description' => 'Project "' . $request->name . '" successfully updated',
             'user_id' => $req_user->id,
             'event_id' => $project_id,
             'module' => 'Project'
-        ]);
+        ]));
 
-        return response()->json(['status'=>"success"], 200);
+        return response()->json(['status' => "success"], 200);
     }
 
     /**
@@ -153,13 +155,13 @@ class ProjectController extends Controller
     public function destroy(Project $project)
     {
         $project->delete();
-        return response()->json(['status'=>"success"], 200);
+        return response()->json(['status' => "success"], 200);
     }
 
     public function listing(Project $project)
     {
-        $datas = Project::with(['site','customer'])->get();
-        return view('project.listing',compact('datas'));
+        $datas = Project::with(['site', 'customer'])->get();
+        return view('project.listing', compact('datas'));
     }
 
     /**
@@ -171,7 +173,6 @@ class ProjectController extends Controller
     {
         $customers = Customer::select('id', 'company_name as name')->get();
         $sites = Site::select('id', 'name')->get();
-        return response(compact('customers','sites'));
+        return response(compact('customers', 'sites'));
     }
-
 }

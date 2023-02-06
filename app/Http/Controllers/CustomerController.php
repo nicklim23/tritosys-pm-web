@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
+use App\Models\Notification;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CustomerController extends Controller
 {
@@ -40,15 +42,18 @@ class CustomerController extends Controller
         $customer = $request->all();
         $customer = Customer::create($customer);
 
-        $notification = Notification::create([
+        $req_user = Auth::user();
+
+        $notification = new NotificationController();
+        $notification->sendNotification(collect([
             'title' => 'Customer Added',
-            'description' => 'Customer "'.$request->name.'" successfully added',
+            'description' => 'Customer "' . $request->name . '" successfully added',
             'user_id' => $req_user->id,
             'event_id' => $customer->id,
             'module' => 'Customer'
-        ]);
+        ]));
 
-        return response()->json(['status'=>"success"], 200);
+        return response()->json(['status' => "success"], 200);
     }
 
     /**
@@ -71,7 +76,7 @@ class CustomerController extends Controller
      */
     public function edit(Customer $customer)
     {
-        return view('customer.edit_customer',compact('customer'));
+        return view('customer.edit_customer', compact('customer'));
     }
 
     /**
@@ -91,7 +96,7 @@ class CustomerController extends Controller
             'status',
         ]));
         $customer = $customer->save();
-        return response()->json(['status'=>"success"], 200);
+        return response()->json(['status' => "success"], 200);
     }
 
     /**
@@ -103,13 +108,13 @@ class CustomerController extends Controller
     public function destroy(Customer $customer)
     {
         $customer->delete();
-        return response()->json(['status'=>"success"], 200);
+        return response()->json(['status' => "success"], 200);
     }
 
     public function listing(Customer $customer)
     {
         $datas = Customer::all();
-        return view('customer.listing',compact('datas'));
+        return view('customer.listing', compact('datas'));
     }
 
     /**

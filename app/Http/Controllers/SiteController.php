@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Site;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SiteController extends Controller
 {
@@ -42,15 +43,16 @@ class SiteController extends Controller
 
         $req_user = Auth::user();
 
-        $notification = Notification::create([
+        $notification = new NotificationController();
+        $notification->sendNotification(collect([
             'title' => 'Site Added',
-            'description' => 'Site "'.$request->name.'" successfully added',
+            'description' => 'Site "' . $request->name . '" successfully added',
             'user_id' => $req_user->id,
             'event_id' => $site->id,
             'module' => 'Site'
-        ]);
+        ]));
 
-        return response()->json(['status'=>"success"], 200);
+        return response()->json(['status' => "success"], 200);
     }
 
     /**
@@ -73,7 +75,7 @@ class SiteController extends Controller
      */
     public function edit(Site $site)
     {
-        return view('site.edit_site',compact('site'));
+        return view('site.edit_site', compact('site'));
     }
 
     /**
@@ -92,7 +94,7 @@ class SiteController extends Controller
             'address',
         ]));
         $site = $site->save();
-        return response()->json(['status'=>"success"], 200);
+        return response()->json(['status' => "success"], 200);
     }
 
     /**
@@ -104,13 +106,13 @@ class SiteController extends Controller
     public function destroy(Site $site)
     {
         $site->delete();
-        return response()->json(['status'=>"success"], 200);
+        return response()->json(['status' => "success"], 200);
     }
 
     public function listing(Site $site)
     {
         $datas = Site::all();
-        return view('site.listing',compact('datas'));
+        return view('site.listing', compact('datas'));
     }
 
     /**
