@@ -5,5 +5,5 @@ use Laravel\Passport\AuthCode as Auth;
 
 class AuthCode extends Auth
 {
-    protected $connection = 'tenant';
+    // protected $connection = 'tenant';
 }

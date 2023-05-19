@@ -10,7 +10,7 @@ class Group extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $connection = 'tenant';
+    // protected $connection = 'tenant';
 
     /**
      * The attributes that are mass assignable.

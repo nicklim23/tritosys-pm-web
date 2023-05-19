@@ -8,5 +8,5 @@ use Laravel\Passport\RefreshToken;
 
 class AuthRefreshTokenModel extends RefreshToken
 {
-    protected $connection = "tenant";
+    // protected $connection = "tenant";
 }

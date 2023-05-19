@@ -10,7 +10,7 @@ class GroupType extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $connection = 'tenant';
+    // protected $connection = 'tenant';
 
     protected $fillable = [
         'group_id',

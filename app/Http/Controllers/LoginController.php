@@ -29,9 +29,7 @@ class LoginController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            $user = User::where('email', $email)->where(function ($q) use ($date) {
-                $q->where('resign_date', '>', $date)->orWhereNull('resign_date');
-            })->first();
+            $user = User::where('email', $email)->first();
             if ($user) {
                 if (Hash::check($password, $user->password)) {
                     session(['user_id' => $user->id]);

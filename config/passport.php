@@ -59,7 +59,7 @@ return [
 
     'storage' => [
         'database' => [
-            'connection' => 'tenant',
+            // 'connection' => 'tenant',
         ],
     ],
 

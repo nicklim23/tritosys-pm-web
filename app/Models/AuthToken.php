@@ -9,5 +9,5 @@ use Laravel\Passport\Token;
 
 class AuthToken extends Token
 {
-    protected $connection = 'tenant';
+    // protected $connection = 'tenant';
 }

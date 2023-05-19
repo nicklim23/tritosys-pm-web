@@ -8,5 +8,5 @@ use Laravel\Passport\PersonalAccessClient;
 
 class AuthPersonalAccessClient extends PersonalAccessClient
 {
-    protected $connection = 'tenant';
+    // protected $connection = 'tenant';
 }
