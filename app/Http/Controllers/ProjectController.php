@@ -128,6 +128,10 @@ class ProjectController extends Controller
             'site_id',
             'project_manager',
             'date',
+            'show_materials',
+            'show_installation',
+            'show_acceptance',
+            'show_decomm',
             'status'
         ]));
         $project = $project->save();

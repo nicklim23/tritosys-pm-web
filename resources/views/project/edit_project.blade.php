@@ -37,10 +37,10 @@
                                 <button class="multisteps-form__progress-btn js-active" type="button" title="Project Details">
                                     <span>Project Details</span>
                                 </button>
-                                <button class="multisteps-form__progress-btn" type="button" title="Materials">Materials</button>
-                                <button class="multisteps-form__progress-btn" type="button" title="Installation">Installation</button>
-                                <button class="multisteps-form__progress-btn" type="button" title="Acceptance">Acceptance</button>
-                                <button class="multisteps-form__progress-btn" type="button" title="Decomm Materials">Decomm Materials</button>
+                                <button <?php echo $project->show_materials==1?'':'style="display: none"'?> class="multisteps-form__progress-btn" type="button" title="Materials">Materials</button>
+                                <button <?php echo $project->show_installation==1?'':'style="display: none"'?> class="multisteps-form__progress-btn" type="button" title="Installation">Installation</button>
+                                <button <?php echo $project->show_acceptance==1?'':'style="display: none"'?> class="multisteps-form__progress-btn" type="button" title="Acceptance">Acceptance</button>
+                                <button <?php echo $project->show_decomm==1?'':'style="display: none"'?> class="multisteps-form__progress-btn" type="button" title="Decomm Materials">Decomm Materials</button>
                                 <button class="multisteps-form__progress-btn" type="button" title="Documentation">Documentation</button>
                                 <button class="multisteps-form__progress-btn" type="button" title="Kanban">Kanban</button>
                             </div>
@@ -128,6 +128,29 @@
                                             </select>
                                         </div>
                                     </div>
+                                    <div class="form-group row">
+                                        <div class="col-md-6">
+                                            <label class="col-form-label">
+                                                Module Control
+                                            </label>
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input" type="checkbox" id="show_materials" {{ $project->show_materials == 1 ? 'checked' : ''}}>
+                                                <label class="form-check-label" for="show_materials">Show Materials</label>
+                                            </div>
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input" type="checkbox" id="show_installation" {{ $project->show_installation == 1 ? 'checked' : ''}}>
+                                                <label class="form-check-label" for="show_installation">Show Installation</label>
+                                            </div>
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input" type="checkbox" id="show_acceptance" {{ $project->show_acceptance == 1 ? 'checked' : ''}}>
+                                                <label class="form-check-label" for="show_acceptance">Show Acceptance</label>
+                                            </div>
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input" type="checkbox" id="show_decomm" {{ $project->show_decomm == 1 ? 'checked' : ''}}>
+                                                <label class="form-check-label" for="show_decomm">Show Decomm Materials</label>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="d-flex justify-content-end mt-4">
                                         <a class="btn bg-gradient-danger lg-3" href="{{ url('/projects') }}" role="button">Back</a>
                                         &ensp;
@@ -138,7 +161,7 @@
                         </form>
 
                         <!-- Materials -->
-                        <div class="card multisteps-form__panel p-3 border-radius-xl bg-white"
+                        <div <?php $project->show_materials==1?'':'style="display: none"'?> class="card multisteps-form__panel p-3 border-radius-xl bg-white"
                             data-animation="FadeIn">
                             <div class="multisteps-form__content">
                                 <div class="row mt-1">
@@ -180,7 +203,7 @@
                         </div>
 
                         <!-- Installation -->
-                        <div class="card multisteps-form__panel p-3 border-radius-xl bg-white"
+                        <div <?php echo $project->show_installation==1?'':'style="display: none"'?> class="card multisteps-form__panel p-3 border-radius-xl bg-white"
                             data-animation="FadeIn">
                             <div class="multisteps-form__content">
                                 <div class="row mt-1">
@@ -229,7 +252,7 @@
                         </div>
 
                         <!-- Acceptance -->
-                        <div class="card multisteps-form__panel p-3 border-radius-xl bg-white"
+                        <div <?php echo $project->show_acceptance==1?'':'style="display: none"'?> class="card multisteps-form__panel p-3 border-radius-xl bg-white"
                             data-animation="FadeIn">
                             <div class="multisteps-form__content">
                                 <div class="row mt-1">
@@ -274,7 +297,7 @@
                         </div>
 
                         <!-- Decomm Materials -->
-                        <div class="card multisteps-form__panel p-3 border-radius-xl bg-white"
+                        <div <?php echo $project->show_decomm==1?'':'style="display: none"'?> class="card multisteps-form__panel p-3 border-radius-xl bg-white"
                             data-animation="FadeIn">
                             <div class="multisteps-form__content">
                                 <div class="row mt-1">
@@ -709,6 +732,10 @@
                 //submit to backend
                 var formData = new FormData(this);
                 formData.append("_method", "PUT");
+                formData.append("show_materials", $('#show_materials').prop('checked') ? 1 : 0);
+                formData.append("show_installation", $('#show_installation').prop('checked') ? 1 : 0);
+                formData.append("show_acceptance", $('#show_acceptance').prop('checked') ? 1 : 0);
+                formData.append("show_decomm", $('#show_decomm').prop('checked') ? 1 : 0);
 
                 $.ajax({
                     // url: "{{ url('projects/' . $project->id) }}",
@@ -727,7 +754,7 @@
                             showButton: true,
                         })
                         setTimeout(function() {
-                            window.location = "/projects";
+                            location.reload();
                         }, 1500);
                     },
                     error: function(error) {

@@ -17,6 +17,10 @@ class Project extends Model
         'project_manager',
         'date',
         'status',
+        'show_materials',
+        'show_installation',
+        'show_acceptance',
+        'show_decomm',
     ];
 
     public function customer()
